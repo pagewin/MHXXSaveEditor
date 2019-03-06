@@ -1,8 +1,10 @@
 # MHXXSaveEditor - 3DS version
 
-This project has been discontinued as I have moved on from MHXX for the 3DS.  
+Tweaking this in my _very_ limited free time. Release 0.09c is the last version tested on actual hardware.
+
 If you are looking for a MHXX save editor for the Switch version, please refer to [this](https://github.com/Dawnshifter/MHXXSwitchSaveEditor) instead.  
-And if you're looking for a MHGU save editor, please refer to [this](https://gbatemp.net/threads/mhgu-save-editor.515460/) instead. 
+
+If you're looking for a MHGU save editor, please refer to [this](https://gbatemp.net/threads/mhgu-save-editor.515460/) instead. 
 
 ## Description
 
@@ -25,11 +27,16 @@ Looking for a better talisman/charm editor? Look [here](https://gbatemp.net/thre
 
 ## Requirements
 
-- Your MHXX `system` file obtained from your prefered save manager
-- .NET Framework ver 4.0
-- C++ Redistributables
+- Your MHXX `system` file obtained from your preferred save manager
+  - Citra: ```sdmc/Nintendo 3DS/00000000000000000000000000000000/00000000000000000000000000000000/extdata/00000000/00001971/user/```
+- Windows: [.NET Framework 4.0+](http://www.microsoft.com/en-us/download/details.aspx?id=17851), Visual C++ Redistributables
+- Linux: [Mono](https://www.mono-project.com/)
+
+## Building
+Use your platform's version of [MSBuild](https://github.com/Microsoft/msbuild), usually installed with Visual Studio or Mono. Mono's deprecated xbuild may also work.
 
 ## Credits
+- **Ukee** - For the previous iteration of [MHXXSaveEditor](https://github.com/mineminemine/MHXXSaveEditor).
 - **APM** - For her initial work on a save editor for MHGen/MHX, some of the source code and GUI for this save editor is based off hers, see [here](https://github.com/ezapm/APMMHXSaveEditor)  
 - **svanheulen** - For his research on the save file format/structure, see [here](https://github.com/svanheulen/mhff/wiki)
 - **Kiranico** - For some references.
