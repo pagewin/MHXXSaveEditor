@@ -228,7 +228,7 @@ namespace MHXXSaveEditor
 
                     Array.Copy(player.PalicoData, a * Constants.SIZEOF_PALICO, palicoNameByte, 0, Constants.SIZEOF_NAME);
                     palicoName = Encoding.UTF8.GetString(palicoNameByte);
-                    palicoType = GameConstants.PalicoForte[Convert.ToInt32(player.PalicoData[(a * Constants.SIZEOF_PALICO) + 37])];
+                    palicoType = GameConstants.PalicoBias[Convert.ToInt32(player.PalicoData[(a * Constants.SIZEOF_PALICO) + 37])];
 
                     string[] arr = new string[3];
                     arr[0] = (a + 1).ToString();
@@ -920,7 +920,7 @@ namespace MHXXSaveEditor
                 byte[] palicoNameByte = new byte[32];
                 Array.Copy(player.PalicoData, selectedSlot * Constants.SIZEOF_PALICO, palicoNameByte, 0, Constants.SIZEOF_NAME);
                 listViewPalico.SelectedItems[0].SubItems[1].Text = Encoding.UTF8.GetString(palicoNameByte);
-                listViewPalico.SelectedItems[0].SubItems[2].Text = GameConstants.PalicoForte[Convert.ToInt32(player.PalicoData[(selectedSlot * Constants.SIZEOF_PALICO) + 37])];
+                listViewPalico.SelectedItems[0].SubItems[2].Text = GameConstants.PalicoBias[Convert.ToInt32(player.PalicoData[(selectedSlot * Constants.SIZEOF_PALICO) + 37])];
             }
             else
             {
@@ -940,7 +940,7 @@ namespace MHXXSaveEditor
                 byte[] palicoNameByte = new byte[32];
                 Array.Copy(player.PalicoData, selectedSlot * Constants.SIZEOF_PALICO, palicoNameByte, 0, Constants.SIZEOF_NAME);
                 listViewPalico.SelectedItems[0].SubItems[1].Text = Encoding.UTF8.GetString(palicoNameByte);
-                listViewPalico.SelectedItems[0].SubItems[2].Text = GameConstants.PalicoForte[Convert.ToInt32(player.PalicoData[(selectedSlot * Constants.SIZEOF_PALICO) + 37])];
+                listViewPalico.SelectedItems[0].SubItems[2].Text = GameConstants.PalicoBias[Convert.ToInt32(player.PalicoData[(selectedSlot * Constants.SIZEOF_PALICO) + 37])];
             }
         }
 
@@ -1139,7 +1139,7 @@ namespace MHXXSaveEditor
 
             if (savefile.ShowDialog() == DialogResult.OK)
                 File.WriteAllBytes(savefile.FileName, saveFile);
-            MessageBox.Show("File saved", "Saved !");
+            MessageBox.Show("File saved", "Saved!");
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)

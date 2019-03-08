@@ -31,11 +31,11 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.comboBoxSkillRNG = new System.Windows.Forms.ComboBox();
-            this.comboBoxActionRNG = new System.Windows.Forms.ComboBox();
+            this.comboBoxSupportMoveRNG = new System.Windows.Forms.ComboBox();
             this.textBoxGreeting = new System.Windows.Forms.TextBox();
             this.comboBoxTarget = new System.Windows.Forms.ComboBox();
             this.label25 = new System.Windows.Forms.Label();
-            this.textBoxForteSpecificID = new System.Windows.Forms.TextBox();
+            this.textBoxBiasSpecificID = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
             this.textBoxOriginalOwnerID = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
@@ -52,7 +52,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.numericUpDownEnthusiasm = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
-            this.comboBoxForte = new System.Windows.Forms.ComboBox();
+            this.comboBoxBias = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.numericUpDownExp = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
@@ -82,8 +82,8 @@
             this.comboBoxVoice = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.comboBoxEquippedActions = new System.Windows.Forms.ComboBox();
-            this.listViewEquippedActions = new System.Windows.Forms.ListView();
+            this.comboBoxEquippedSupportMoves = new System.Windows.Forms.ComboBox();
+            this.listViewEquippedSupportMoves = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage4 = new System.Windows.Forms.TabPage();
@@ -92,8 +92,8 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.comboBoxLearnedActions = new System.Windows.Forms.ComboBox();
-            this.listViewLearnedActions = new System.Windows.Forms.ListView();
+            this.comboBoxLearnedSupportMoves = new System.Windows.Forms.ComboBox();
+            this.listViewLearnedSupportMoves = new System.Windows.Forms.ListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage6 = new System.Windows.Forms.TabPage();
@@ -134,11 +134,11 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.comboBoxSkillRNG);
-            this.tabPage1.Controls.Add(this.comboBoxActionRNG);
+            this.tabPage1.Controls.Add(this.comboBoxSupportMoveRNG);
             this.tabPage1.Controls.Add(this.textBoxGreeting);
             this.tabPage1.Controls.Add(this.comboBoxTarget);
             this.tabPage1.Controls.Add(this.label25);
-            this.tabPage1.Controls.Add(this.textBoxForteSpecificID);
+            this.tabPage1.Controls.Add(this.textBoxBiasSpecificID);
             this.tabPage1.Controls.Add(this.label24);
             this.tabPage1.Controls.Add(this.textBoxOriginalOwnerID);
             this.tabPage1.Controls.Add(this.label23);
@@ -155,7 +155,7 @@
             this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.numericUpDownEnthusiasm);
             this.tabPage1.Controls.Add(this.label6);
-            this.tabPage1.Controls.Add(this.comboBoxForte);
+            this.tabPage1.Controls.Add(this.comboBoxBias);
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.numericUpDownExp);
             this.tabPage1.Controls.Add(this.label3);
@@ -180,14 +180,14 @@
             this.comboBoxSkillRNG.TabIndex = 33;
             this.comboBoxSkillRNG.SelectedIndexChanged += new System.EventHandler(this.ComboBoxSkillRNG_SelectedIndexChanged);
             // 
-            // comboBoxActionRNG
+            // comboBoxSupportMoveRNG
             // 
-            this.comboBoxActionRNG.FormattingEnabled = true;
-            this.comboBoxActionRNG.Location = new System.Drawing.Point(9, 194);
-            this.comboBoxActionRNG.Name = "comboBoxActionRNG";
-            this.comboBoxActionRNG.Size = new System.Drawing.Size(200, 24);
-            this.comboBoxActionRNG.TabIndex = 32;
-            this.comboBoxActionRNG.SelectedIndexChanged += new System.EventHandler(this.ComboBoxActionRNG_SelectedIndexChanged);
+            this.comboBoxSupportMoveRNG.FormattingEnabled = true;
+            this.comboBoxSupportMoveRNG.Location = new System.Drawing.Point(9, 194);
+            this.comboBoxSupportMoveRNG.Name = "comboBoxSupportMoveRNG";
+            this.comboBoxSupportMoveRNG.Size = new System.Drawing.Size(200, 24);
+            this.comboBoxSupportMoveRNG.TabIndex = 32;
+            this.comboBoxSupportMoveRNG.SelectedIndexChanged += new System.EventHandler(this.ComboBoxSupportMoveRNG_SelectedIndexChanged);
             // 
             // textBoxGreeting
             // 
@@ -213,15 +213,15 @@
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(111, 17);
             this.label25.TabIndex = 29;
-            this.label25.Text = "Forte Specific ID";
+            this.label25.Text = "Bias Specific ID";
             // 
-            // textBoxForteSpecificID
+            // textBoxBiasSpecificID
             // 
-            this.textBoxForteSpecificID.Location = new System.Drawing.Point(233, 137);
-            this.textBoxForteSpecificID.Name = "textBoxForteSpecificID";
-            this.textBoxForteSpecificID.ReadOnly = true;
-            this.textBoxForteSpecificID.Size = new System.Drawing.Size(200, 22);
-            this.textBoxForteSpecificID.TabIndex = 28;
+            this.textBoxBiasSpecificID.Location = new System.Drawing.Point(233, 137);
+            this.textBoxBiasSpecificID.Name = "textBoxBiasSpecificID";
+            this.textBoxBiasSpecificID.ReadOnly = true;
+            this.textBoxBiasSpecificID.Size = new System.Drawing.Size(200, 22);
+            this.textBoxBiasSpecificID.TabIndex = 28;
             // 
             // label24
             // 
@@ -327,7 +327,7 @@
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(125, 17);
             this.label8.TabIndex = 14;
-            this.label8.Text = "Learned Skill RNG";
+            this.label8.Text = "Skill RNG";
             // 
             // label7
             // 
@@ -336,7 +336,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(139, 17);
             this.label7.TabIndex = 12;
-            this.label7.Text = "Learned Action RNG";
+            this.label7.Text = "Support Move RNG";
             // 
             // label5
             // 
@@ -368,13 +368,13 @@
             this.label6.TabIndex = 8;
             this.label6.Text = "Enthusiasm";
             // 
-            // comboBoxForte
+            // comboBoxBias
             // 
-            this.comboBoxForte.FormattingEnabled = true;
-            this.comboBoxForte.Location = new System.Drawing.Point(9, 78);
-            this.comboBoxForte.Name = "comboBoxForte";
-            this.comboBoxForte.Size = new System.Drawing.Size(200, 24);
-            this.comboBoxForte.TabIndex = 7;
+            this.comboBoxBias.FormattingEnabled = true;
+            this.comboBoxBias.Location = new System.Drawing.Point(9, 78);
+            this.comboBoxBias.Name = "comboBoxBias";
+            this.comboBoxBias.Size = new System.Drawing.Size(200, 24);
+            this.comboBoxBias.TabIndex = 7;
             // 
             // label4
             // 
@@ -383,7 +383,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(41, 17);
             this.label4.TabIndex = 6;
-            this.label4.Text = "Forte";
+            this.label4.Text = "Bias";
             // 
             // numericUpDownExp
             // 
@@ -647,7 +647,7 @@
             "Thin",
             "Sharp",
             "Doe",
-            "Close",
+            "Closed",
             "Scarred"});
             this.comboBoxEyes.Location = new System.Drawing.Point(280, 91);
             this.comboBoxEyes.Name = "comboBoxEyes";
@@ -687,42 +687,42 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.comboBoxEquippedActions);
-            this.tabPage3.Controls.Add(this.listViewEquippedActions);
+            this.tabPage3.Controls.Add(this.comboBoxEquippedSupportMoves);
+            this.tabPage3.Controls.Add(this.listViewEquippedSupportMoves);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(692, 371);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Equipped Actions";
+            this.tabPage3.Text = "Equipped Support Moves";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // comboBoxEquippedActions
+            // comboBoxEquippedSupportMoves
             // 
-            this.comboBoxEquippedActions.Enabled = false;
-            this.comboBoxEquippedActions.FormattingEnabled = true;
-            this.comboBoxEquippedActions.Location = new System.Drawing.Point(7, 332);
-            this.comboBoxEquippedActions.Name = "comboBoxEquippedActions";
-            this.comboBoxEquippedActions.Size = new System.Drawing.Size(250, 24);
-            this.comboBoxEquippedActions.TabIndex = 4;
-            this.comboBoxEquippedActions.SelectedIndexChanged += new System.EventHandler(this.ComboBoxEquippedActions_SelectedIndexChanged);
+            this.comboBoxEquippedSupportMoves.Enabled = false;
+            this.comboBoxEquippedSupportMoves.FormattingEnabled = true;
+            this.comboBoxEquippedSupportMoves.Location = new System.Drawing.Point(7, 332);
+            this.comboBoxEquippedSupportMoves.Name = "comboBoxEquippedSupportMoves";
+            this.comboBoxEquippedSupportMoves.Size = new System.Drawing.Size(250, 24);
+            this.comboBoxEquippedSupportMoves.TabIndex = 4;
+            this.comboBoxEquippedSupportMoves.SelectedIndexChanged += new System.EventHandler(this.ComboBoxEquippedSupportMoves_SelectedIndexChanged);
             // 
-            // listViewEquippedActions
+            // listViewEquippedSupportMoves
             // 
-            this.listViewEquippedActions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listViewEquippedSupportMoves.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
-            this.listViewEquippedActions.FullRowSelect = true;
-            this.listViewEquippedActions.GridLines = true;
-            this.listViewEquippedActions.Location = new System.Drawing.Point(7, 7);
-            this.listViewEquippedActions.Margin = new System.Windows.Forms.Padding(4);
-            this.listViewEquippedActions.MultiSelect = false;
-            this.listViewEquippedActions.Name = "listViewEquippedActions";
-            this.listViewEquippedActions.Size = new System.Drawing.Size(678, 318);
-            this.listViewEquippedActions.TabIndex = 3;
-            this.listViewEquippedActions.UseCompatibleStateImageBehavior = false;
-            this.listViewEquippedActions.View = System.Windows.Forms.View.Details;
-            this.listViewEquippedActions.SelectedIndexChanged += new System.EventHandler(this.ListViewEquippedActions_SelectedIndexChanged);
+            this.listViewEquippedSupportMoves.FullRowSelect = true;
+            this.listViewEquippedSupportMoves.GridLines = true;
+            this.listViewEquippedSupportMoves.Location = new System.Drawing.Point(7, 7);
+            this.listViewEquippedSupportMoves.Margin = new System.Windows.Forms.Padding(4);
+            this.listViewEquippedSupportMoves.MultiSelect = false;
+            this.listViewEquippedSupportMoves.Name = "listViewEquippedSupportMoves";
+            this.listViewEquippedSupportMoves.Size = new System.Drawing.Size(678, 318);
+            this.listViewEquippedSupportMoves.TabIndex = 3;
+            this.listViewEquippedSupportMoves.UseCompatibleStateImageBehavior = false;
+            this.listViewEquippedSupportMoves.View = System.Windows.Forms.View.Details;
+            this.listViewEquippedSupportMoves.SelectedIndexChanged += new System.EventHandler(this.ListViewEquippedSupportMoves_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
@@ -730,7 +730,7 @@
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "Actions";
+            this.columnHeader2.Text = "Support Moves";
             this.columnHeader2.Width = 480;
             // 
             // tabPage4
@@ -783,42 +783,42 @@
             // 
             // tabPage5
             // 
-            this.tabPage5.Controls.Add(this.comboBoxLearnedActions);
-            this.tabPage5.Controls.Add(this.listViewLearnedActions);
+            this.tabPage5.Controls.Add(this.comboBoxLearnedSupportMoves);
+            this.tabPage5.Controls.Add(this.listViewLearnedSupportMoves);
             this.tabPage5.Location = new System.Drawing.Point(4, 25);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage5.Size = new System.Drawing.Size(692, 371);
             this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Learned Actions";
+            this.tabPage5.Text = "Support Moves";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // comboBoxLearnedActions
+            // comboBoxLearnedSupportMoves
             // 
-            this.comboBoxLearnedActions.Enabled = false;
-            this.comboBoxLearnedActions.FormattingEnabled = true;
-            this.comboBoxLearnedActions.Location = new System.Drawing.Point(6, 332);
-            this.comboBoxLearnedActions.Name = "comboBoxLearnedActions";
-            this.comboBoxLearnedActions.Size = new System.Drawing.Size(250, 24);
-            this.comboBoxLearnedActions.TabIndex = 6;
-            this.comboBoxLearnedActions.SelectedIndexChanged += new System.EventHandler(this.ComboBoxLearnedActions_SelectedIndexChanged);
+            this.comboBoxLearnedSupportMoves.Enabled = false;
+            this.comboBoxLearnedSupportMoves.FormattingEnabled = true;
+            this.comboBoxLearnedSupportMoves.Location = new System.Drawing.Point(6, 332);
+            this.comboBoxLearnedSupportMoves.Name = "comboBoxLearnedSupportMoves";
+            this.comboBoxLearnedSupportMoves.Size = new System.Drawing.Size(250, 24);
+            this.comboBoxLearnedSupportMoves.TabIndex = 6;
+            this.comboBoxLearnedSupportMoves.SelectedIndexChanged += new System.EventHandler(this.ComboBoxLearnedSupportMoves_SelectedIndexChanged);
             // 
-            // listViewLearnedActions
+            // listViewLearnedSupportMoves
             // 
-            this.listViewLearnedActions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listViewLearnedSupportMoves.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader5,
             this.columnHeader6});
-            this.listViewLearnedActions.FullRowSelect = true;
-            this.listViewLearnedActions.GridLines = true;
-            this.listViewLearnedActions.Location = new System.Drawing.Point(7, 7);
-            this.listViewLearnedActions.Margin = new System.Windows.Forms.Padding(4);
-            this.listViewLearnedActions.MultiSelect = false;
-            this.listViewLearnedActions.Name = "listViewLearnedActions";
-            this.listViewLearnedActions.Size = new System.Drawing.Size(678, 318);
-            this.listViewLearnedActions.TabIndex = 4;
-            this.listViewLearnedActions.UseCompatibleStateImageBehavior = false;
-            this.listViewLearnedActions.View = System.Windows.Forms.View.Details;
-            this.listViewLearnedActions.SelectedIndexChanged += new System.EventHandler(this.ListViewLearnedActions_SelectedIndexChanged);
+            this.listViewLearnedSupportMoves.FullRowSelect = true;
+            this.listViewLearnedSupportMoves.GridLines = true;
+            this.listViewLearnedSupportMoves.Location = new System.Drawing.Point(7, 7);
+            this.listViewLearnedSupportMoves.Margin = new System.Windows.Forms.Padding(4);
+            this.listViewLearnedSupportMoves.MultiSelect = false;
+            this.listViewLearnedSupportMoves.Name = "listViewLearnedSupportMoves";
+            this.listViewLearnedSupportMoves.Size = new System.Drawing.Size(678, 318);
+            this.listViewLearnedSupportMoves.TabIndex = 4;
+            this.listViewLearnedSupportMoves.UseCompatibleStateImageBehavior = false;
+            this.listViewLearnedSupportMoves.View = System.Windows.Forms.View.Details;
+            this.listViewLearnedSupportMoves.SelectedIndexChanged += new System.EventHandler(this.ListViewLearnedSupportMoves_SelectedIndexChanged);
             // 
             // columnHeader5
             // 
@@ -826,7 +826,7 @@
             // 
             // columnHeader6
             // 
-            this.columnHeader6.Text = "Actions";
+            this.columnHeader6.Text = "Support Moves";
             this.columnHeader6.Width = 432;
             // 
             // tabPage6
@@ -838,7 +838,7 @@
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage6.Size = new System.Drawing.Size(692, 371);
             this.tabPage6.TabIndex = 5;
-            this.tabPage6.Text = "Learned Skills";
+            this.tabPage6.Text = "Skills";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
             // comboBoxLearnedSkills
@@ -965,7 +965,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown numericUpDownEnthusiasm;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox comboBoxForte;
+        private System.Windows.Forms.ComboBox comboBoxBias;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown numericUpDownExp;
         private System.Windows.Forms.Label label3;
@@ -1002,32 +1002,32 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox comboBoxVoice;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.ListView listViewEquippedActions;
+        private System.Windows.Forms.ListView listViewEquippedSupportMoves;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ListView listViewEquippedSkills;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ListView listViewLearnedActions;
+        private System.Windows.Forms.ListView listViewLearnedSupportMoves;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ListView listViewLearnedSkills;
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ColumnHeader columnHeader8;
-        private System.Windows.Forms.ComboBox comboBoxEquippedActions;
+        private System.Windows.Forms.ComboBox comboBoxEquippedSupportMoves;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.TextBox textBoxUniquePalicoID;
         private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.TextBox textBoxForteSpecificID;
+        private System.Windows.Forms.TextBox textBoxBiasSpecificID;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.TextBox textBoxOriginalOwnerID;
         private System.Windows.Forms.ComboBox comboBoxEquippedSkills;
-        private System.Windows.Forms.ComboBox comboBoxLearnedActions;
+        private System.Windows.Forms.ComboBox comboBoxLearnedSupportMoves;
         private System.Windows.Forms.ComboBox comboBoxLearnedSkills;
         private System.Windows.Forms.ComboBox comboBoxTarget;
         private System.Windows.Forms.TextBox textBoxGreeting;
         private System.Windows.Forms.ComboBox comboBoxSkillRNG;
-        private System.Windows.Forms.ComboBox comboBoxActionRNG;
+        private System.Windows.Forms.ComboBox comboBoxSupportMoveRNG;
         private System.Windows.Forms.Button buttonExportPalico;
         private System.Windows.Forms.Button buttonImportPalico;
     }

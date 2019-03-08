@@ -1730,7 +1730,7 @@
             // 
             // columnHeader6
             // 
-            this.columnHeader6.Text = "Forte";
+            this.columnHeader6.Text = "Bias";
             this.columnHeader6.Width = 435;
             // 
             // palicoEquipTab
