@@ -7,7 +7,7 @@ Tweaking this in my _very_ limited free time. Release 0.09c is the last version 
 A save editor for Monster Hunter XX for the Nintendo 3DS.
 
 Need an editor for MHXX Switch or MHGU?
-1. [MHXX Switch Save Editor by Dawnshifter](https://github.com/Dawnshifter/MHXXSwitchSaveEditor) based off of Switch or MHGU?
+1. [MHXX Switch Save Editor by Dawnshifter](https://github.com/Dawnshifter/MHXXSwitchSaveEditor) based off of v0.09c of this project.
 2. Instructions for editing MHGU saves with Dawnshifter's fork [here](https://gbatemp.net/threads/mhgu-save-editor.515460/).
 3. It may be possible to transfer your edited MHXX save file from the 3DS/2DS to the Switch and back. Refer [to this thread](https://www.reddit.com/r/MonsterHunter/comments/6vtal5/mhxx_how_to_transfer_your_3ds_save_to_switchwith/) for instructions.
 
