@@ -2,7 +2,8 @@
 // Also thanks to Seth VanHeulen for his work on the save file structures for MH games
 // Last but not least, thanks to GBATemp's few threads on MHX/MHGen/MHXX save editing
 // This editor was made by Ukee from GBATemp https://gbatemp.net/threads/release-mhxx-save-editor.481210/
-// The source code can be found @ https://github.com/mineminemine/MHXXSaveEditor
+// The original source code can be found @ https://github.com/mineminemine/MHXXSaveEditor
+// This fork's source code can be found at https://github.com/pagewin/MHXXSaveEditor
 
 using MHXXSaveEditor.Data;
 using MHXXSaveEditor.Forms;
@@ -165,7 +166,7 @@ namespace MHXXSaveEditor
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Made by Ukee for GBATemp\nBased off APM's MHX/MHGen Save Editor\nAlso thanks to Seth VanHeulen for the Save File structure\nAnd some MHX/MHGen/MHXX hex editing threads in GBATemp", "About");
+            MessageBox.Show("Modified by pagewin\nMade by Ukee for GBATemp\nBased off APM's MHX/MHGen Save Editor\nAlso thanks to Seth VanHeulen for the Save File structure\nAnd some MHX/MHGen/MHXX hex editing threads in GBATemp", "About");
         }
 
         public void LoadSave()
@@ -1116,7 +1117,7 @@ namespace MHXXSaveEditor
 
         private void GoToMainThreadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Do you wish visit the main thread?", "Visit Main Thread", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
+            if (MessageBox.Show("Visit GBATemp thread?", "Visit Main Thread", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
             {
                 System.Diagnostics.Process.Start("https://gbatemp.net/threads/release-mhxx-save-editor.481210/");
             }
@@ -1124,9 +1125,9 @@ namespace MHXXSaveEditor
 
         private void VisitGithubPageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Do you wish visit Github page?", "Visit Github", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
+            if (MessageBox.Show("Visit project on Github?", "Visit Github", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
             {
-                System.Diagnostics.Process.Start("https://github.com/mineminemine/MHXXSaveEditor");
+                System.Diagnostics.Process.Start("https://github.com/pagewin/MHXXSaveEditor");
             }
         }
 

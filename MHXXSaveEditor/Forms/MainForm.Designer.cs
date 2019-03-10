@@ -454,8 +454,8 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem,
             this.toolStripSeparator6,
-            this.goToMainThreadToolStripMenuItem,
-            this.visitGithubPageToolStripMenuItem});
+            this.visitGithubPageToolStripMenuItem,
+            this.goToMainThreadToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.helpToolStripMenuItem.Text = "Help";
@@ -483,7 +483,7 @@
             // 
             this.visitGithubPageToolStripMenuItem.Name = "visitGithubPageToolStripMenuItem";
             this.visitGithubPageToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
-            this.visitGithubPageToolStripMenuItem.Text = "Visit Github page";
+            this.visitGithubPageToolStripMenuItem.Text = "Visit Github";
             this.visitGithubPageToolStripMenuItem.Click += new System.EventHandler(this.VisitGithubPageToolStripMenuItem_Click);
             // 
             // tabControlMain

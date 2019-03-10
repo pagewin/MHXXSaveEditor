@@ -1,4 +1,4 @@
-﻿namespace MHXXSaveEditor.Data
+namespace MHXXSaveEditor.Data
 {
     class Constants
     {
