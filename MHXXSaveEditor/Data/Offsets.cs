@@ -26,15 +26,15 @@
         public const int CHARACTER_FACE_OFFSET = 0x23B4E; //Size 1
         public const int CHARACTER_FEATURES_OFFSET = 0x23B4F; //Size 1
         public const int CHARACTER_SKIN_COLOR_OFFSET = 0x23B67; //Size 4 
-        public const int CHARACTER_HAIR_COLOR_OFFSET = 0X23B6B; //Size 4
+        public const int CHARACTER_HAIR_COLOR_OFFSET = 0x23B6B; //Size 4
         public const int CHARACTER_FEATURES_COLOR_OFFSET = 0x23B6F; //Size 4
-        public const int CHARACTER_CLOTHING_COLOR_OFFSET = 0X23B73; //Size 4
+        public const int CHARACTER_CLOTHING_COLOR_OFFSET = 0x23B73; //Size 4
 
         // Only shown on save screen ?
         //public const int NAME_OFFSET = 0x0; //Size 32
         //public const int HUNTER_ART_1_OFFSET = 0x2C; //Size 2
         //public const int HUNTER_ART_2_OFFSET = 0x2E; //Size 2
-        //public const int HUNTER_ART_3_OFFSET = 0X30; //Size 2
+        //public const int HUNTER_ART_3_OFFSET = 0x30; //Size 2
         //public const int EQUIPPED_WEAPON_OFFSET = 0x010C; //Size 48
         //public const int EQUIPPED_HEAD_OFFSET = 0x013C; //Size 48
         //public const int EQUIPPED_CHEST_OFFSET = 0x016C; //Size 48
@@ -87,19 +87,19 @@
         // Player Guild Card
         public const int GUILCARD_OFFSET = 0xC71BD;
         //public const int GUILDCARD_NAME_OFFSET = 0xC71BD; //Size 12 ?
-        //public const int GUILDCARD_WEAPONTYPE_OFFSET = 0XC71D5; //Size 1
-        public const int GUILDCARD_VOICE_OFFSET = 0XC71D6; //Size 1
-        public const int GUILDCARD_EYE_COLOR_OFFSET = 0XC71D7; //Size 1
-        public const int GUILDCARD_CLOTHING_OFFSET = 0XC71D8; //Size 1
-        public const int GUILDCARD_GENDER_OFFSET = 0XC71D9; // Size 1
+        //public const int GUILDCARD_WEAPONTYPE_OFFSET = 0xC71D5; //Size 1
+        public const int GUILDCARD_VOICE_OFFSET = 0xC71D6; //Size 1
+        public const int GUILDCARD_EYE_COLOR_OFFSET = 0xC71D7; //Size 1
+        public const int GUILDCARD_CLOTHING_OFFSET = 0xC71D8; //Size 1
+        public const int GUILDCARD_GENDER_OFFSET = 0xC71D9; // Size 1
         public const int GUILDCARD_HUNTINGSTYLE_OFFSET = 0xC71DA; // Size 1
         public const int GUILDCARD_HAIRSTYLE_OFFSET = 0xC71DB; //Size 1
         public const int GUILDCARD_FACE_OFFSET = 0xC71DC; //Size 1
         public const int GUILDCARD_FEATURES_OFFSET = 0xC71DD; //Size 1
-        public const int GUILDCARD_SKIN_COLOR_OFFSET = 0XC71F5; //Size 4
-        public const int GUILDCARD_HAIR_COLOR_OFFSET = 0XC71F9; //Size 4
-        public const int GUILDCARD_FEATURES_COLOR_OFFSET = 0XC71FD; //Size 4
-        public const int GUILDCARD_CLOTHING_COLOR_OFFSET = 0XC7201; //Size 4
+        public const int GUILDCARD_SKIN_COLOR_OFFSET = 0xC71F5; //Size 4
+        public const int GUILDCARD_HAIR_COLOR_OFFSET = 0xC71F9; //Size 4
+        public const int GUILDCARD_FEATURES_COLOR_OFFSET = 0xC71FD; //Size 4
+        public const int GUILDCARD_CLOTHING_COLOR_OFFSET = 0xC7201; //Size 4
         //public const int GUILDCARD_LOWVIL_QUEST_OFFSET = 0xC7A1B; //Size 2
         //public const int GUILDCARD_HIGHVIL_QUEST_OFFSET = 0xC7A1D; //Size 2
         //public const int GUILDCARD_LOWHUB_QUEST_OFFSET = 0xC7A1F; //Size 2
@@ -107,10 +107,10 @@
         //public const int GUILDCARD_GRANK_QUEST_OFFSET = 0xC7A23; //Size 2
         //public const int GUILDCARD_SP_QUEST_OFFSET = 0xC7A25; //Size 2
         //public const int GUILDCARD_ARENA_QUEST_OFFSET = 0xC7A27; //Size 2
-        public const int GUILDCARD_ID_OFFSET = 0XC7A6D; //Size 8
-        //public const int GUILDCARD_VILLAGE_WEAPON_OFFSET = 0XC7A77; //Size 30
-        //public const int GUILDCARD_HUB_WEAPON_OFFSET = 0XC7A95; //Size 30
-        //public const int GUILDCARD_ARENA_WEAPON_OFFSET = 0XC7AB3; //Size 30
+        public const int GUILDCARD_ID_OFFSET = 0xC7A6D; //Size 8
+        //public const int GUILDCARD_VILLAGE_WEAPON_OFFSET = 0xC7A77; //Size 30
+        //public const int GUILDCARD_HUB_WEAPON_OFFSET = 0xC7A95; //Size 30
+        //public const int GUILDCARD_ARENA_WEAPON_OFFSET = 0xC7AB3; //Size 30
         public const int GUILDCARD_ARENA_LOG_OFFSET = 0xC83E1; //Size 324
 
         // Shoutouts
