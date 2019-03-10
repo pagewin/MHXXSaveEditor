@@ -2,34 +2,64 @@
 
 Tweaking this in my _very_ limited free time. Release 0.09c is the last version tested on actual hardware.
 
-If you are looking for a MHXX save editor for the Switch version, please refer to [this](https://github.com/Dawnshifter/MHXXSwitchSaveEditor) instead.  
-
-If you're looking for a MHGU save editor, please refer to [this](https://gbatemp.net/threads/mhgu-save-editor.515460/) instead. 
-
 ## Description
 
-A save editor for Monster Hunter XX for the Nintendo 3DS/2DS, not the Switch version.  
-However, it *should be possible* to transfer your edited MHXX save file from the 3DS/2DS to the Switch and back. Refer [here](https://www.reddit.com/r/MonsterHunter/comments/6vtal5/mhxx_how_to_transfer_your_3ds_save_to_switchwith/).
+A save editor for Monster Hunter XX for the Nintendo 3DS.
+
+Need an editor for MHXX Switch or MHGU?
+1. [MHXX Switch Save Editor by Dawnshifter](https://github.com/Dawnshifter/MHXXSwitchSaveEditor) based off of Switch or MHGU?
+2. Instructions for editing MHGU saves with Dawnshifter's fork [here](https://gbatemp.net/threads/mhgu-save-editor.515460/).
+3. It may be possible to transfer your edited MHXX save file from the 3DS/2DS to the Switch and back. Refer [to this thread](https://www.reddit.com/r/MonsterHunter/comments/6vtal5/mhxx_how_to_transfer_your_3ds_save_to_switchwith/) for instructions.
+
+An editor targeted specifically at talismans is available [here](https://gbatemp.net/threads/release-mh-talisman-editor-for-mhxx-mhx-mhgen-mh4g-mh4u.411182).
 
 ## Features
 
 - General Editor
-- Character Editor
+  - HR points
+  - Funds and village points
+  - Hunter name
+  - Playtime
+  - Shoutouts
+- Guild Card Editor
+  - Number of quests run
+  - Weapon usage records
+  - Monster slay/capture/size records
+  - Arena records
+- Hunter Editor
+  - Appearance
 - Item Box Editor
-- Equipment Editor (Transmogrify, Talisman/Charm (see section below), Kinsect, etc.)
-- Palico Equipment Editor (Transmogrify too)
-- Palico Editor (General stuffs, Learned Actions/Skills, etc.)
-- Guild Card Editor (Monster Hunts, Arena, etc.)
+  - Add new items or change quantities
+  - Increase quantity of all items in box to maximum
+  - Set quantity of all items in box to a specific number
+  - Remove all duplicate items
+  - Empty entire box
+  - Export and import item boxes
+- Equipment Editor
+  - Add new equipment or modify existing equipment
+  - Transmogrify
+  - Talismans
+  - Kinsects
+  - Decorations
+  - Upgrade levels
+  - Export and import equipment boxes
+- Palico Equipment Editor
+  - Add new equipment
+  - Transmogrify
+- Palico Editor
+  - Name, Level, Experience, Enthusiasm, Greeting, Previous Owner, Name Giver
+  - Appearance (voice, eyes, coat, etc.)
+  - Bias
+  - Support Moves
+  - Skills
+  - Export and import Palicoes
 
----
-
-Looking for a better talisman/charm editor? Look [here](https://gbatemp.net/threads/release-mh-talisman-editor-for-mhxx-mhx-mhgen-mh4g-mh4u.411182)
 
 ## Requirements
 
 - Your MHXX `system` file obtained from your preferred save manager
   - Citra: ```sdmc/Nintendo 3DS/00000000000000000000000000000000/00000000000000000000000000000000/extdata/00000000/00001971/user/```
-- Windows: [.NET Framework 4.0+](http://www.microsoft.com/en-us/download/details.aspx?id=17851), Visual C++ Redistributables
+- Windows: [.NET Framework 4.0+](http://www.microsoft.com/en-us/download/details.aspx?id=17851), [Visual C++ Redistributables](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
 - Linux: [Mono](https://www.mono-project.com/)
 
 ## Building
