@@ -620,9 +620,9 @@ namespace MHXXSaveEditor.Forms
             if (comboBoxBias.SelectedIndex == 0) {
                 for (int a = 3; a < 3 + comboBoxSupportMoveRNG.Text.Length; a++)
                     listViewLearnedSupportMoves.Items[a].SubItems[1].Text = "-----";
-                for (int a = 3 + comboBoxSupportMoveRNG.Text.Length; a < 6 + comboBoxSupportMoveRNG.Text.Length; a++)
+                for (int a = 3 + comboBoxSupportMoveRNG.Text.Length; a < 7 + comboBoxSupportMoveRNG.Text.Length; a++)
                     listViewLearnedSupportMoves.Items[a].SubItems[1].Text = "-----";
-                for (int a = 5 + comboBoxSupportMoveRNG.Text.Length; a < 16; a++)
+                for (int a = 6 + comboBoxSupportMoveRNG.Text.Length; a < 16; a++)
                     listViewLearnedSupportMoves.Items[a].SubItems[1].Text = "NULL [57]";
             } else {
                 for (int a = 4; a < 4 + comboBoxSupportMoveRNG.Text.Length; a++)
