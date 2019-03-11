@@ -23,8 +23,6 @@ Global
 		$2.TabsToSpaces = True
 		$2.scope = text/x-csharp
 		$0.CSharpFormattingPolicy = $3
-		$3.IndentSwitchSection = False
-		$3.NewLinesForBracesInTypes = False
 		$3.NewLinesForBracesInProperties = False
 		$3.NewLinesForBracesInAccessors = False
 		$3.NewLinesForBracesInAnonymousMethods = False
@@ -35,13 +33,8 @@ Global
 		$3.NewLineForElse = False
 		$3.NewLineForCatch = False
 		$3.NewLineForFinally = False
-		$3.NewLineForMembersInObjectInit = False
-		$3.NewLineForMembersInAnonymousTypes = False
-		$3.NewLineForClausesInQuery = False
-		$3.SpacingAfterMethodDeclarationName = True
-		$3.SpaceAfterMethodCallName = True
-		$3.SpaceBeforeOpenSquareBracket = True
 		$3.scope = text/x-csharp
+		$3.NewLinesForBracesInMethods = False
 		$0.TextStylePolicy = $4
 		$4.FileWidth = 80
 		$4.TabsToSpaces = True
