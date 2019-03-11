@@ -7,7 +7,7 @@
         <ProjectGuid>{29ECF6B5-3945-45A5-9582-57EC30F9F8D2}</ProjectGuid>
         <OutputType>WinExe</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
-        <ReleaseVersion>0.10.02</ReleaseVersion>
+        <ReleaseVersion>0.11.01</ReleaseVersion>
         <RootNamespace>MHXXSaveEditor</RootNamespace>
         <AssemblyName>MHXXSaveEditor-v$(ReleaseVersion)</AssemblyName>
         <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
