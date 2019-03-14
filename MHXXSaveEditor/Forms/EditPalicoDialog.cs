@@ -11,6 +11,7 @@ namespace MHXXSaveEditor.Forms
     {
         private MainForm mainForm;
         int selectedPalico;
+        int palicoStatus;
 
         public EditPalicoDialog(MainForm mainForm, string palicoName, int selectedSlot) {
             InitializeComponent();
@@ -53,7 +54,7 @@ namespace MHXXSaveEditor.Forms
             }
             Array.Copy(mainForm.player.PalicoData, (selectedPalico * Constants.SIZEOF_PALICO) + 0x5c, palicoBiasSpecificIDByte, 0, 3);
             //Array.Reverse(palicoBiasSpecificIDByte);
-            foreach (var x in palicoBiasSpecificIDByte) {
+            foreach (var x in palicoBiasSpecificIDByte) { // hometown?
                 palicoBiasSpecificID += x.ToString("X2");
             }
             palicoUniqueID = Convert.ToInt32(mainForm.player.PalicoData[(selectedPalico * Constants.SIZEOF_PALICO) + 0x5f]);
@@ -115,10 +116,13 @@ namespace MHXXSaveEditor.Forms
 
             // Status
             // I have no idea what to name the variables for these tbh
-            int palicoStatus = Convert.ToInt32(mainForm.player.PalicoData[(selectedPalico * Constants.SIZEOF_PALICO) + 0xe0]);
+            palicoStatus = Convert.ToInt32(mainForm.player.PalicoData[(selectedPalico * Constants.SIZEOF_PALICO) + 0xe0]);
             int palicoTraining = Convert.ToInt32(mainForm.player.PalicoData[(selectedPalico * Constants.SIZEOF_PALICO) + 0xe1]);
             int palicoJob = Convert.ToInt32(mainForm.player.PalicoData[(selectedPalico * Constants.SIZEOF_PALICO) + 0xe2]);
             int palicoProwler = Convert.ToInt32(mainForm.player.PalicoData[(selectedPalico * Constants.SIZEOF_PALICO) + 0xe3]);
+            if (palicoStatus > 128) {
+                dlcCheck.Checked = true;
+            }
 
             if (palicoProwler == 1)
                 labelStatusDetail.Text = "This Palico is selected for Prowler Mode";
@@ -538,6 +542,9 @@ namespace MHXXSaveEditor.Forms
             mainForm.player.PalicoData[(selectedPalico * Constants.SIZEOF_PALICO) + 0x115] = (byte)comboBoxEars.SelectedIndex;
             mainForm.player.PalicoData[(selectedPalico * Constants.SIZEOF_PALICO) + 0x116] = (byte)comboBoxTail.SelectedIndex;
 
+            /* Status */
+            mainForm.player.PalicoData[(selectedPalico * Constants.SIZEOF_PALICO) + 0xe0] = (byte)palicoStatus;
+
             // SupportMove & Skill 
             int pAR = comboBoxSupportMoveRNG.SelectedIndex;
             int pSR = comboBoxSkillRNG.SelectedIndex;
@@ -632,6 +639,12 @@ namespace MHXXSaveEditor.Forms
                 for (int a = 6 + comboBoxSupportMoveRNG.Text.Length; a < 16; a++)
                     listViewLearnedSupportMoves.Items[a].SubItems[1].Text = "NULL [57]";
             }
+        }
+
+        private void DlcCheck_CheckStateChanged(object sender, EventArgs e) {
+            /* change bias id? change orig owner id? */
+            palicoStatus = (palicoStatus > 100) ? palicoStatus - 128 : palicoStatus + 128;
+
         }
 
         private void ComboBoxSkillRNG_SelectedIndexChanged(object sender, EventArgs e) {

@@ -105,6 +105,8 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonExportPalico = new System.Windows.Forms.Button();
             this.buttonImportPalico = new System.Windows.Forms.Button();
+            this.dlcLabel = new System.Windows.Forms.Label();
+            this.dlcCheck = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEnthusiasm)).BeginInit();
@@ -163,6 +165,8 @@
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.textBoxName);
             this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.dlcLabel);
+            this.tabPage1.Controls.Add(this.dlcCheck);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -179,6 +183,18 @@
             this.comboBoxSkillRNG.Size = new System.Drawing.Size(200, 24);
             this.comboBoxSkillRNG.TabIndex = 33;
             this.comboBoxSkillRNG.SelectedIndexChanged += new System.EventHandler(this.ComboBoxSkillRNG_SelectedIndexChanged);
+
+            /* DLC checkbox */
+            this.dlcCheck.Location = new System.Drawing.Point(530, 194);
+            this.dlcCheck.TabIndex = 34;
+            this.dlcCheck.CheckStateChanged += new System.EventHandler(this.DlcCheck_CheckStateChanged);
+
+            this.dlcLabel.AutoSize = true;
+            this.dlcLabel.Location = new System.Drawing.Point(550, 198);
+            this.dlcLabel.Name = "dlcLabel";
+            this.dlcLabel.Size = new System.Drawing.Size(125, 17);
+            //this.dlcLabel.TabIndex = 14;
+            this.dlcLabel.Text = "DLC Palico?";
             // 
             // comboBoxSupportMoveRNG
             // 
@@ -328,6 +344,8 @@
             this.label8.Size = new System.Drawing.Size(125, 17);
             this.label8.TabIndex = 14;
             this.label8.Text = "Skill RNG";
+
+            this.dlcLabel.AutoSize = true;
             // 
             // label7
             // 
@@ -1030,5 +1048,7 @@
         private System.Windows.Forms.ComboBox comboBoxSupportMoveRNG;
         private System.Windows.Forms.Button buttonExportPalico;
         private System.Windows.Forms.Button buttonImportPalico;
+        private System.Windows.Forms.Label dlcLabel;
+        private System.Windows.Forms.CheckBox dlcCheck;
     }
 }
