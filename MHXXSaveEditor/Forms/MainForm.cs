@@ -166,7 +166,7 @@ namespace MHXXSaveEditor
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Modified by pagewin\nMade by Ukee for GBATemp\nBased off APM's MHX/MHGen Save Editor\nAlso thanks to Seth VanHeulen for the Save File structure\nAnd some MHX/MHGen/MHXX hex editing threads in GBATemp", "About");
+            MessageBox.Show("Modified by pagewin\n\nMade by Ukee for GBATemp\nBased off APM's MHX/MHGen Save Editor\nAlso thanks to Seth VanHeulen for the Save File structure\nAnd some MHX/MHGen/MHXX hex editing threads in GBATemp", "About");
         }
 
         public void LoadSave()
@@ -1117,15 +1117,15 @@ namespace MHXXSaveEditor
 
         private void GoToMainThreadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Visit GBATemp thread?", "Visit Main Thread", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
+            if (MessageBox.Show("Visit issue tracker on GitHub?\n\nPlease search existing issues before creating a new issue.", "GitHub Issue Tracker", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
             {
-                System.Diagnostics.Process.Start("https://gbatemp.net/threads/release-mhxx-save-editor.481210/");
+                System.Diagnostics.Process.Start("https://github.com/pagewin/MHXXSaveEditor/issues");
             }
         }
 
         private void VisitGithubPageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Visit project on Github?", "Visit Github", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
+            if (MessageBox.Show("Visit project on GitHub?", "Visit GitHub", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
             {
                 System.Diagnostics.Process.Start("https://github.com/pagewin/MHXXSaveEditor");
             }
