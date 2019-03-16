@@ -10,7 +10,7 @@ namespace MHXXSaveEditor.Forms
     public partial class EditPalicoDialog : Form
     {
         private MainForm mainForm;
-        int selectedPalico;
+        int selectedPalico, maximumSupportMoves, maximumSkills;
 
         public EditPalicoDialog(MainForm mainForm, string palicoName, int selectedSlot) {
             InitializeComponent();
@@ -32,10 +32,10 @@ namespace MHXXSaveEditor.Forms
             palicoNameByte = palicoPreviousOwnerByte = palicoNameGiverByte = new byte[Constants.SIZEOF_NAME];
             byte[] palicoExpByte, palicoOriginalOwnerIDByte;
             palicoExpByte = palicoOriginalOwnerIDByte = new byte[4];
-            byte[] palicoBiasSpecificIDByte = new byte[3];
+            byte[] palicoScoutIDByte = new byte[3];
             byte[] palicoGreetingByte = new byte[Constants.TOTAL_PALICO_GREETING];
             string palicoName, palicoNameGiver, palicoPreviousOwner, palicoGreeting, palicoSupportMoveRNG, palicoSkillRNG;
-            string palicoBiasSpecificID = "", palicoOriginalOwnerID = "";
+            string palicoScoutID = "", palicoOriginalOwnerID = "";
             int palicoBias, palicoExp, palicoLevel, palicoEnthusiasm, palicoTarget, palicoUniqueID;
 
             Array.Copy(mainForm.player.PalicoData, selectedPalico * Constants.SIZEOF_PALICO, palicoNameByte, 0, Constants.SIZEOF_NAME);
@@ -51,10 +51,10 @@ namespace MHXXSaveEditor.Forms
             foreach (var x in palicoOriginalOwnerIDByte) {
                 palicoOriginalOwnerID += x.ToString("X2");
             }
-            Array.Copy(mainForm.player.PalicoData, (selectedPalico * Constants.SIZEOF_PALICO) + 0x5c, palicoBiasSpecificIDByte, 0, 3);
-            //Array.Reverse(palicoBiasSpecificIDByte);
-            foreach (var x in palicoBiasSpecificIDByte) {
-                palicoBiasSpecificID += x.ToString("X2");
+            Array.Copy(mainForm.player.PalicoData, (selectedPalico * Constants.SIZEOF_PALICO) + 0x5c, palicoScoutIDByte, 0, 3);
+            //Array.Reverse(palicoScoutIDByte);
+            foreach (var x in palicoScoutIDByte) {
+                palicoScoutID += x.ToString("X2");
             }
             palicoUniqueID = Convert.ToInt32(mainForm.player.PalicoData[(selectedPalico * Constants.SIZEOF_PALICO) + 0x5f]);
             Array.Copy(mainForm.player.PalicoData, (selectedPalico * Constants.SIZEOF_PALICO) + 0x60, palicoGreetingByte, 0, Constants.TOTAL_PALICO_GREETING);
@@ -71,12 +71,18 @@ namespace MHXXSaveEditor.Forms
             if (palicoBias == 0) {
                 pAR = Array.IndexOf(GameConstants.PalicoCharismaSupportMoveRNG, palicoSupportMoveRNG);
                 comboBoxSupportMoveRNG.Items.AddRange(GameConstants.PalicoCharismaSupportMoveRNGAbbv);
+                // Rally + Bomb + Herb + 3 dojo moves
+                maximumSupportMoves = 6 + GameConstants.PalicoCharismaSupportMoveRNGAbbv[pAR].Length;
             } else {
                 pAR = Array.IndexOf(GameConstants.PalicoSupportMoveRNG, palicoSupportMoveRNG);
                 comboBoxSupportMoveRNG.Items.AddRange(GameConstants.PalicoSupportMoveRNGAbbv);
+                // 2 Bias moves + Bomb + Herb + 2 dojo moves
+                maximumSupportMoves = 6 + GameConstants.PalicoSupportMoveRNGAbbv[pAR].Length;
             }
             comboBoxSkillRNG.Items.AddRange(GameConstants.PalicoSkillRNGAbbv);
             pSR = Array.IndexOf(GameConstants.PalicoSkillRNG, palicoSkillRNG);
+            // 2 Bias skills + 2 dojo skills
+            maximumSkills = 4 + GameConstants.PalicoSkillRNGAbbv[pSR].Length;
             comboBoxSupportMoveRNG.SelectedIndex = pAR;
             comboBoxSkillRNG.SelectedIndex = pSR;
 
@@ -87,7 +93,7 @@ namespace MHXXSaveEditor.Forms
             numericUpDownEnthusiasm.Value = palicoEnthusiasm;
             comboBoxTarget.SelectedIndex = palicoTarget;
             textBoxOriginalOwnerID.Text = palicoOriginalOwnerID.ToString();
-            textBoxBiasSpecificID.Text = palicoBiasSpecificID.ToString();
+            textBoxScoutID.Text = palicoScoutID.ToString();
             textBoxUniquePalicoID.Text = palicoUniqueID.ToString();
             textBoxNameGiver.Text = palicoNameGiver;
             textBoxPreviousOwner.Text = palicoPreviousOwner;
@@ -176,7 +182,7 @@ namespace MHXXSaveEditor.Forms
             listViewEquippedSupportMoves.Items.Clear();
             string hexValue, actionName;
             int intValue;
-            for (int a = 0; a < 8; a++) {
+            for (int a = 0; a < 7; a++) {
                 hexValue = mainForm.player.PalicoData[(selectedPalico * Constants.SIZEOF_PALICO) + 0x28 + a].ToString("X2");
                 intValue = int.Parse(hexValue, System.Globalization.NumberStyles.HexNumber);
                 actionName = GameConstants.PalicoSupportMoves[intValue];
@@ -195,7 +201,7 @@ namespace MHXXSaveEditor.Forms
             listViewLearnedSupportMoves.Items.Clear();
             string hexValue, actionName;
             int intValue;
-            for (int a = 0; a < 16; a++) {
+            for (int a = 0; a < maximumSupportMoves; a++) {
                 hexValue = mainForm.player.PalicoData[(selectedPalico * Constants.SIZEOF_PALICO) + 0x38 + a].ToString("X2");
                 intValue = int.Parse(hexValue, System.Globalization.NumberStyles.HexNumber);
                 actionName = GameConstants.PalicoSupportMoves[intValue];
@@ -233,7 +239,7 @@ namespace MHXXSaveEditor.Forms
             listViewLearnedSkills.Items.Clear();
             string hexValue, skillName;
             int intValue;
-            for (int a = 0; a < 12; a++) {
+            for (int a = 0; a < maximumSkills; a++) {
                 hexValue = mainForm.player.PalicoData[(selectedPalico * Constants.SIZEOF_PALICO) + 0x48 + a].ToString("X2");
                 intValue = int.Parse(hexValue, System.Globalization.NumberStyles.HexNumber);
                 skillName = GameConstants.PalicoSkills[intValue];
@@ -258,14 +264,14 @@ namespace MHXXSaveEditor.Forms
 
             comboBoxEquippedSupportMoves.Items.Clear();
 
-            if (actionSelectedSlot == 0)
+            if (actionSelectedSlot == 0) {
                 comboBoxEquippedSupportMoves.Enabled = false;
-            else if (actionSelectedSlot == 1 && Convert.ToInt32(mainForm.player.PalicoData[(selectedPalico * Constants.SIZEOF_PALICO) + 0x25]) == 0) {
+            } else if (actionSelectedSlot == 1 && Convert.ToInt32(mainForm.player.PalicoData[(selectedPalico * Constants.SIZEOF_PALICO) + 0x25]) == 0) {
                 comboBoxEquippedSupportMoves.Items.AddRange(GameConstants.PalicoSupportMoves);
                 comboBoxEquippedSupportMoves.Enabled = true;
-            } else if (actionSelectedSlot == 1)
+            } else if (actionSelectedSlot == 1) {
                 comboBoxEquippedSupportMoves.Enabled = false;
-            else {
+            } else {
                 comboBoxEquippedSupportMoves.Items.AddRange(GameConstants.PalicoSupportMoves);
                 comboBoxEquippedSupportMoves.Enabled = true;
             }
@@ -457,7 +463,6 @@ namespace MHXXSaveEditor.Forms
                 if (!cb.Focused) {
                     return;
                 }
-
                 listViewLearnedSupportMoves.SelectedItems[0].SubItems[1].Text = comboBoxLearnedSupportMoves.Text;
             }
         }
@@ -620,17 +625,13 @@ namespace MHXXSaveEditor.Forms
             if (comboBoxBias.SelectedIndex == 0) {
                 for (int a = 3; a < 3 + comboBoxSupportMoveRNG.Text.Length; a++)
                     listViewLearnedSupportMoves.Items[a].SubItems[1].Text = "-----";
-                for (int a = 3 + comboBoxSupportMoveRNG.Text.Length; a < 7 + comboBoxSupportMoveRNG.Text.Length; a++)
+                for (int a = 3 + comboBoxSupportMoveRNG.Text.Length; a < maximumSkills; a++)
                     listViewLearnedSupportMoves.Items[a].SubItems[1].Text = "-----";
-                for (int a = 6 + comboBoxSupportMoveRNG.Text.Length; a < 16; a++)
-                    listViewLearnedSupportMoves.Items[a].SubItems[1].Text = "NULL [57]";
             } else {
                 for (int a = 4; a < 4 + comboBoxSupportMoveRNG.Text.Length; a++)
                     listViewLearnedSupportMoves.Items[a].SubItems[1].Text = "-----";
-                for (int a = 4 + comboBoxSupportMoveRNG.Text.Length; a < 7 + comboBoxSupportMoveRNG.Text.Length; a++)
+                for (int a = 4 + comboBoxSupportMoveRNG.Text.Length; a < maximumSupportMoves; a++)
                     listViewLearnedSupportMoves.Items[a].SubItems[1].Text = "-----";
-                for (int a = 6 + comboBoxSupportMoveRNG.Text.Length; a < 16; a++)
-                    listViewLearnedSupportMoves.Items[a].SubItems[1].Text = "NULL [57]";
             }
         }
 
@@ -639,7 +640,7 @@ namespace MHXXSaveEditor.Forms
             if (!cb.Focused) {
                 return;
             }
-            for (int a = 2; a < 8; a++) {
+            for (int a = 2; a < maximumSkills; a++) {
                 if (listViewLearnedSkills.Items[a].SubItems[1].Text != "-----" || !listViewLearnedSkills.Items[a].SubItems[1].Text.Contains("NULL"))
                     listViewLearnedSkills.Items[a].SubItems[1].Text = "-----";
             }
@@ -702,9 +703,10 @@ namespace MHXXSaveEditor.Forms
             savefile.FileName = palicoName;
             savefile.Filter = "Catzx files (*.catzx)|*.catzx";
 
-            if (savefile.ShowDialog() == DialogResult.OK)
+            if (savefile.ShowDialog() == DialogResult.OK) {
                 File.WriteAllBytes(savefile.FileName, thePalico);
-            MessageBox.Show("Palico has been exported", "Export Palico");
+                MessageBox.Show("Palico has been exported", "Export Palico");
+            }
         }
 
         private void ButtonImportPalico_Click(object sender, EventArgs e) {

@@ -35,7 +35,7 @@
             this.textBoxGreeting = new System.Windows.Forms.TextBox();
             this.comboBoxTarget = new System.Windows.Forms.ComboBox();
             this.label25 = new System.Windows.Forms.Label();
-            this.textBoxBiasSpecificID = new System.Windows.Forms.TextBox();
+            this.textBoxScoutID = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
             this.textBoxOriginalOwnerID = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
@@ -138,7 +138,7 @@
             this.tabPage1.Controls.Add(this.textBoxGreeting);
             this.tabPage1.Controls.Add(this.comboBoxTarget);
             this.tabPage1.Controls.Add(this.label25);
-            this.tabPage1.Controls.Add(this.textBoxBiasSpecificID);
+            this.tabPage1.Controls.Add(this.textBoxScoutID);
             this.tabPage1.Controls.Add(this.label24);
             this.tabPage1.Controls.Add(this.textBoxOriginalOwnerID);
             this.tabPage1.Controls.Add(this.label23);
@@ -213,15 +213,15 @@
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(111, 17);
             this.label25.TabIndex = 29;
-            this.label25.Text = "Bias Specific ID";
+            this.label25.Text = "Scout ID";
             // 
-            // textBoxBiasSpecificID
+            // textBoxScoutID
             // 
-            this.textBoxBiasSpecificID.Location = new System.Drawing.Point(233, 137);
-            this.textBoxBiasSpecificID.Name = "textBoxBiasSpecificID";
-            this.textBoxBiasSpecificID.ReadOnly = true;
-            this.textBoxBiasSpecificID.Size = new System.Drawing.Size(200, 22);
-            this.textBoxBiasSpecificID.TabIndex = 28;
+            this.textBoxScoutID.Location = new System.Drawing.Point(233, 137);
+            this.textBoxScoutID.Name = "textBoxScoutID";
+            this.textBoxScoutID.ReadOnly = true;
+            this.textBoxScoutID.Size = new System.Drawing.Size(200, 22);
+            this.textBoxScoutID.TabIndex = 28;
             // 
             // label24
             // 
@@ -300,7 +300,7 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(108, 17);
             this.label10.TabIndex = 18;
-            this.label10.Text = "Previous Owner";
+            this.label10.Text = "Last Master";
             // 
             // textBoxNameGiver
             // 
@@ -318,7 +318,7 @@
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(83, 17);
             this.label9.TabIndex = 16;
-            this.label9.Text = "Name Giver";
+            this.label9.Text = "Namegiver";
             // 
             // label8
             // 
@@ -1018,7 +1018,7 @@
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.TextBox textBoxUniquePalicoID;
         private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.TextBox textBoxBiasSpecificID;
+        private System.Windows.Forms.TextBox textBoxScoutID;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.TextBox textBoxOriginalOwnerID;
         private System.Windows.Forms.ComboBox comboBoxEquippedSkills;

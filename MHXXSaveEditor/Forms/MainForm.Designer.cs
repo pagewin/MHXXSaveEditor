@@ -61,7 +61,7 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.goToMainThreadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.goToIssuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.visitGithubPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.generalTab = new System.Windows.Forms.TabPage();
@@ -455,7 +455,7 @@
             this.aboutToolStripMenuItem,
             this.toolStripSeparator6,
             this.visitGithubPageToolStripMenuItem,
-            this.goToMainThreadToolStripMenuItem});
+            this.goToIssuesToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.helpToolStripMenuItem.Text = "Help";
@@ -472,18 +472,18 @@
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             this.toolStripSeparator6.Size = new System.Drawing.Size(195, 6);
             // 
-            // goToMainThreadToolStripMenuItem
+            // goToIssuesToolStripMenuItem
             // 
-            this.goToMainThreadToolStripMenuItem.Name = "goToMainThreadToolStripMenuItem";
-            this.goToMainThreadToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
-            this.goToMainThreadToolStripMenuItem.Text = "Visit main thread";
-            this.goToMainThreadToolStripMenuItem.Click += new System.EventHandler(this.GoToMainThreadToolStripMenuItem_Click);
+            this.goToIssuesToolStripMenuItem.Name = "goToIssuesToolStripMenuItem";
+            this.goToIssuesToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
+            this.goToIssuesToolStripMenuItem.Text = "Report a problem";
+            this.goToIssuesToolStripMenuItem.Click += new System.EventHandler(this.GoToMainThreadToolStripMenuItem_Click);
             // 
             // visitGithubPageToolStripMenuItem
             // 
             this.visitGithubPageToolStripMenuItem.Name = "visitGithubPageToolStripMenuItem";
             this.visitGithubPageToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
-            this.visitGithubPageToolStripMenuItem.Text = "Visit Github";
+            this.visitGithubPageToolStripMenuItem.Text = "Visit GitHub";
             this.visitGithubPageToolStripMenuItem.Click += new System.EventHandler(this.VisitGithubPageToolStripMenuItem_Click);
             // 
             // tabControlMain
@@ -2057,7 +2057,7 @@
         private System.Windows.Forms.ToolStripMenuItem removeDuplicatesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeAllItemsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem goToMainThreadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem goToIssuesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem visitGithubPageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
