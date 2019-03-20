@@ -125,7 +125,7 @@ namespace MHXXSaveEditor.Util
             Array.Copy(saveFile, player.SaveOffset + Offsets.PALICO_OFFSET, player.PalicoData, 0, Constants.SIZEOF_PALICOES);
 
             // Guild Card
-            Array.Copy(saveFile, player.SaveOffset + Offsets.GUILCARD_OFFSET, player.GuildCardData, 0, Constants.SIZEOF_GUILDCARD);
+            Array.Copy(saveFile, player.SaveOffset + Offsets.GUILDCARD_OFFSET, player.GuildCardData, 0, Constants.SIZEOF_GUILDCARD);
             Array.Copy(saveFile, player.SaveOffset + Offsets.GUILDCARD_ARENA_LOG_OFFSET, player.ArenaData, 0, Constants.SIZEOF_ARENALOG);
 
             // Shoutouts

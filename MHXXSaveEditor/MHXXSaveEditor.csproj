@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
     <PropertyGroup>
@@ -7,10 +7,10 @@
         <ProjectGuid>{29ECF6B5-3945-45A5-9582-57EC30F9F8D2}</ProjectGuid>
         <OutputType>WinExe</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
-        <ReleaseVersion>0.11.02</ReleaseVersion>
+        <ReleaseVersion>0.12.01</ReleaseVersion>
         <RootNamespace>MHXXSaveEditor</RootNamespace>
         <AssemblyName>MHXXSaveEditor-v$(ReleaseVersion)</AssemblyName>
-        <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
         <TargetFrameworkProfile />
@@ -27,8 +27,6 @@
         <Prefer32Bit>false</Prefer32Bit>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugType>pdbonly</DebugType>
         <Optimize>true</Optimize>
         <OutputPath>bin\Release\</OutputPath>
         <DefineConstants>TRACE</DefineConstants>
@@ -161,6 +159,8 @@
             <DependentUpon>Settings.settings</DependentUpon>
             <DesignTimeSharedInput>True</DesignTimeSharedInput>
         </Compile>
+        <Compile Include="Data\Palico.cs" />
+        <Compile Include="Data\PalicoOffsets.cs" />
     </ItemGroup>
     <ItemGroup>
         <None Include="App.config" />

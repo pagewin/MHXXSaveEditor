@@ -180,6 +180,7 @@
             this.equipmentBoxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.importFromToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.openBackupDirectory = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.generalTab.SuspendLayout();
@@ -243,6 +244,7 @@
             this.selectSaveToolStripMenuItem,
             this.toolStripSeparator4,
             this.loadToolStripMenuItem,
+            this.openBackupDirectory,
             this.toolStripSeparator3,
             this.saveToolStripMenuItemSave,
             this.saveAsToolStripMenuItem,
@@ -299,6 +301,13 @@
             this.loadToolStripMenuItem.Size = new System.Drawing.Size(193, 26);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.LoadToolStripMenuItem_Click);
+
+
+            this.openBackupDirectory.Name = "openBackupDirectory";
+            this.openBackupDirectory.Size = new System.Drawing.Size(193, 26);
+            this.openBackupDirectory.Text = "Open Backup Directory";
+            this.openBackupDirectory.Click += new System.EventHandler(this.OpenBackupDirectory_Click);
+
             // 
             // toolStripSeparator3
             // 
@@ -2082,6 +2091,7 @@
         private System.Windows.Forms.ToolStripMenuItem equipmentBoxToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportToToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem importFromToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem openBackupDirectory;
     }
 }
 
