@@ -5,9 +5,6 @@
 // The original source code can be found @ https://github.com/mineminemine/MHXXSaveEditor
 // This fork's source code can be found at https://github.com/pagewin/MHXXSaveEditor
 
-using MHXXSaveEditor.Data;
-using MHXXSaveEditor.Forms;
-using MHXXSaveEditor.Util;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -15,23 +12,60 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MHXXSaveEditor.Data;
+using MHXXSaveEditor.Forms;
+using MHXXSaveEditor.Util;
 
 namespace MHXXSaveEditor
 {
     public partial class MainForm : Form
     {
-        public MainForm()
-        {
+        public MainForm() {
             InitializeComponent();
             this.Text = Constants.EDITOR_VERSION; // Changes app title
+            backupDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            backupDirectory += Path.DirectorySeparatorChar + "MHXXSaveEditor";
+            SetBackupDirectory();
         }
 
         public Player player = new Player();
         string filePath;
+        string originalFileName;
         byte[] saveFile;
         int currentPlayer, itemSelectedSlot;
         public int equipSelectedSlot, palicoEqpSelectedSlot;
         SecondsToHHMMSS ttime = new SecondsToHHMMSS();
+        string backupDirectory;
+
+        private bool SetBackupDirectory() {
+            if (!Directory.Exists(backupDirectory)) {
+                try {
+                    Directory.CreateDirectory(backupDirectory);
+                } catch {
+                    MessageBox.Show("Unable to create backup directory.\nCheck your write permissions for " + backupDirectory + "\n\nAutomatic backup functionality will not work.", "Directory creation failed",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool CreateBackup() { 
+            if (SetBackupDirectory()) {
+                string backup = backupDirectory + Path.DirectorySeparatorChar + originalFileName + DateTimeOffset.UtcNow.ToUnixTimeSeconds() + ".bak";
+
+                try {
+                    if (File.Exists(backup)) {
+                        return (MessageBox.Show("File already exists: " + backup + "\n\nSave anyway?", "Backup failed", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes);
+                    }
+                    File.Copy(filePath, backup);
+                    return true;
+                } catch {
+                    return (MessageBox.Show("Unable to backup save file to " + backup + "\n\nSave anyway?", "Backup failed", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes);
+                }
+            }
+            return (MessageBox.Show("Unable to backup save file to " + backupDirectory + "\n\nSave anyway?", "Backup failed", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes);
+        }
 
         private void LoadToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -56,7 +90,8 @@ namespace MHXXSaveEditor
             Cursor.Current = Cursors.WaitCursor;
             SplashScreen.ShowSplashScreen();
             filePath = ofd.FileName;
-            Text = string.Format("{0} [{1}]", Constants.EDITOR_VERSION, ofd.SafeFileName); // Changes app title
+            originalFileName = ofd.SafeFileName;
+            Text = string.Format("{0} [{1}]", Constants.EDITOR_VERSION, originalFileName); // Changes app title
             saveFile = File.ReadAllBytes(ofd.FileName); // Read all bytes from file into memory buffer
             ofd.Dispose();
 
@@ -112,6 +147,12 @@ namespace MHXXSaveEditor
             SplashScreen.CloseForm();
         }
 
+        private void OpenBackupDirectory_Click(object sender, EventArgs e) {
+            if (Directory.Exists(backupDirectory)) {
+                System.Diagnostics.Process.Start(backupDirectory);
+            }
+        }
+
         private void ToolStripMenuItemSaveSlot1_Click(object sender, EventArgs e)
         {
             if(currentPlayer != 1)
@@ -159,9 +200,11 @@ namespace MHXXSaveEditor
 
         private void SaveToolStripMenuItemSave_Click(object sender, EventArgs e)
         {
-            PackSaveFile();
-            File.WriteAllBytes(filePath, saveFile);
-            MessageBox.Show("File saved", "Saved !");
+            if (CreateBackup()) {
+                PackSaveFile();
+                File.WriteAllBytes(filePath, saveFile);
+                MessageBox.Show("File saved.", "Saved!");
+            }
         }
 
         private void AboutToolStripMenuItem_Click(object sendesr, EventArgs e)
@@ -566,7 +609,7 @@ namespace MHXXSaveEditor
             Array.Copy(player.EquipmentPalico, 0, saveFile, player.SaveOffset + Offsets.PALICO_EQUIPMENT_OFFSET, Constants.SIZEOF_PALICOEQUIPBOX);
 
             // Guild Card
-            Array.Copy(player.GuildCardData, 0, saveFile, player.SaveOffset + Offsets.GUILCARD_OFFSET, Constants.SIZEOF_GUILDCARD);
+            Array.Copy(player.GuildCardData, 0, saveFile, player.SaveOffset + Offsets.GUILDCARD_OFFSET, Constants.SIZEOF_GUILDCARD);
 
             // Monster Hunts / Sizes
             Array.Copy(player.MonsterKills, 0, saveFile, player.SaveOffset + Offsets.MONSTERHUNT_OFFSETS, Constants.SIZEOF_MONSTERHUNTS);
@@ -1133,14 +1176,17 @@ namespace MHXXSaveEditor
 
         private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PackSaveFile();
-            SaveFileDialog savefile = new SaveFileDialog();
-            savefile.FileName = "system";
-            savefile.Filter = "All files (*.*)|*.*";
+            if (CreateBackup()) {
+                PackSaveFile();
+                SaveFileDialog savefile = new SaveFileDialog();
+                savefile.FileName = "system";
+                savefile.Filter = "All files (*.*)|*.*";
 
-            if (savefile.ShowDialog() == DialogResult.OK)
-                File.WriteAllBytes(savefile.FileName, saveFile);
-            MessageBox.Show("File saved", "Saved!");
+                if (savefile.ShowDialog() == DialogResult.OK) {
+                    File.WriteAllBytes(savefile.FileName, saveFile);
+                    MessageBox.Show("File saved", "Saved!");
+                }
+            }
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)

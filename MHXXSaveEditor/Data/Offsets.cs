@@ -85,7 +85,7 @@
         //public const int POUCH_OFFSET = 0x142E; //Size 72 (32 Items each 18 bits long)
 
         // Player Guild Card
-        public const int GUILCARD_OFFSET = 0xC71BD;
+        public const int GUILDCARD_OFFSET = 0xC71BD;
         //public const int GUILDCARD_NAME_OFFSET = 0xC71BD; //Size 12 ?
         //public const int GUILDCARD_WEAPONTYPE_OFFSET = 0xC71D5; //Size 1
         public const int GUILDCARD_VOICE_OFFSET = 0xC71D6; //Size 1
