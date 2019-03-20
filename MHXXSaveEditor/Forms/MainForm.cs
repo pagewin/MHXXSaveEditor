@@ -52,7 +52,8 @@ namespace MHXXSaveEditor
 
         private bool CreateBackup() { 
             if (SetBackupDirectory()) {
-                string backup = backupDirectory + Path.DirectorySeparatorChar + originalFileName + DateTimeOffset.UtcNow.ToUnixTimeSeconds() + ".bak";
+                long time = (long) (DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+                string backup = backupDirectory + Path.DirectorySeparatorChar + originalFileName + time + ".bak";
 
                 try {
                     if (File.Exists(backup)) {

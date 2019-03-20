@@ -63,8 +63,8 @@ An editor targeted specifically at talismans is available [here](https://gbatemp
 
 - Your MHXX `system` file obtained from your preferred save manager
   - Citra: ```sdmc/Nintendo 3DS/00000000000000000000000000000000/00000000000000000000000000000000/extdata/00000000/00001971/user/```
-- Windows: [.NET Framework 4.6+](http://www.microsoft.com/en-us/download/details.aspx?id=17851), [Visual C++ Redistributables](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
-- Linux: [Mono](https://www.mono-project.com/) or [Wine](https://www.winehq.org) with at least `dotnet46`
+- Windows: [.NET Framework 4.0+](http://www.microsoft.com/en-us/download/details.aspx?id=17851), [Visual C++ Redistributables](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
+- Linux: [Mono](https://www.mono-project.com/) or [Wine](https://www.winehq.org) with at least `dotnet40`
 
 ## Building
 Use your platform's version of [MSBuild](https://github.com/Microsoft/msbuild), usually installed with Visual Studio or Mono. Mono's deprecated xbuild may also work. Ensure that your chosen build tool supports at least .NET 4.6.

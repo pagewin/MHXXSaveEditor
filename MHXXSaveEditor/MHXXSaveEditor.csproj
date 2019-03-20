@@ -10,7 +10,7 @@
         <ReleaseVersion>0.12.01</ReleaseVersion>
         <RootNamespace>MHXXSaveEditor</RootNamespace>
         <AssemblyName>MHXXSaveEditor-v$(ReleaseVersion)</AssemblyName>
-        <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
         <TargetFrameworkProfile />
@@ -159,8 +159,6 @@
             <DependentUpon>Settings.settings</DependentUpon>
             <DesignTimeSharedInput>True</DesignTimeSharedInput>
         </Compile>
-        <Compile Include="Data\Palico.cs" />
-        <Compile Include="Data\PalicoOffsets.cs" />
     </ItemGroup>
     <ItemGroup>
         <None Include="App.config" />
