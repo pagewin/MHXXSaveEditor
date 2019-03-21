@@ -54,6 +54,7 @@ An editor targeted specifically at talismans is available [here](https://gbatemp
   - Skills
   - Export and import Palicoes
 - Automatic backup of save files
+  - **Before trusting automatic backups, verify that they will load in game and in the editor.**
   - These are stored in your OS's application data folder. The following are defaults and can be different if you've modified your environment.
   - Windows/Wine: `%APPDATA%\MHXXSaveEditor`
     - Enter `%APPDATA%` into the File Explorer address bar to find where your version of Windows keeps it.
@@ -67,7 +68,7 @@ An editor targeted specifically at talismans is available [here](https://gbatemp
 - Linux: [Mono](https://www.mono-project.com/) or [Wine](https://www.winehq.org) with at least `dotnet40`
 
 ## Building
-Use your platform's version of [MSBuild](https://github.com/Microsoft/msbuild), usually installed with Visual Studio or Mono. Mono's deprecated xbuild may also work. Ensure that your chosen build tool supports at least .NET 4.6.
+Use your platform's version of [MSBuild](https://github.com/Microsoft/msbuild), usually installed with Visual Studio or Mono. Mono's deprecated xbuild may also work. Ensure that your chosen build tool supports at least .NET 4.0.
 
 ## Credits
 - **Ukee** - For the previous iteration of [MHXXSaveEditor](https://github.com/mineminemine/MHXXSaveEditor).
