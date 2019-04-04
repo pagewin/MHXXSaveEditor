@@ -226,8 +226,24 @@ namespace MHXXSaveEditor.Data
             CopyFromOriginalData(Prowler, SIZEOF_STATUS, PROWLER);
         }
 
-        private void CheckDlc() {
+        private bool CheckDlc() {
+            return (Status[0] >= 128 // SIZEOF_STATUS is 1, so a single-element array
+                    && OriginalOwner == PalicoOffsets.DLC_MASTER
+                    && Namegiver == PalicoOffsets.DLC_MASTER);
+        }
 
+        /* making assumptions here; maybe this doesn't work */
+        /* One-way operation -- warn user before applying in Form */
+        private void SetDlc() {
+            Array.Copy(PalicoOffsets.DLC_MASTER, OriginalOwner, SIZEOF_ORIGINAL_OWNER_ID);
+            Array.Copy(PalicoOffsets.DLC_MASTER, Namegiver, SIZEOF_ORIGINAL_OWNER_ID);
+            byte[] newStatus = { (byte) (Status[0] + PalicoOffsets.DLC_STATUS) }; // why does C# cast bytes to int before addition instead of having + operator for bytes?
+            Array.Copy(newStatus, Status, SIZEOF_STATUS);
+        }
+
+        /* Can't store the real originals anywhere, so just assume the current hunter is the namegiver and orig owner */
+        private void UnsetDlc() {
+            /* fix hunter stuff, guild card id is hidden in magic numbers in EditGuildCardDialog.cs */
         }
     }
 }

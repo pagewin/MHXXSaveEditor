@@ -24,6 +24,9 @@
             "Beast"
         };
 
+        public static readonly byte[] DLC_MASTER = { 0, 0, 0, 0 };
+        public const byte DLC_STATUS = 128;
+
         public const byte NAME = 0x0;
         public const byte LAST_MASTER = 0xBC;
         public const byte NAMEGIVER = 0x9C;
