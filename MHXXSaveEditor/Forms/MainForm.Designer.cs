@@ -26,6 +26,14 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
+
+        private void initStripArray(System.Windows.Forms.ToolStripMenuItem[] arr) {
+            int asz = arr.Length;
+            for (int i = 0; i < asz; ++i) {
+                arr[i] = new System.Windows.Forms.ToolStripMenuItem();
+            }
+        }
+
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -33,9 +41,10 @@
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectSaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemSaveSlot1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemSaveSlot2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemSaveSlot3 = new System.Windows.Forms.ToolStripMenuItem();
+
+            this.saveSlotStrip = new System.Windows.Forms.ToolStripMenuItem[3];
+            initStripArray(this.saveSlotStrip);
+
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -43,9 +52,10 @@
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteSaveSlotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.slot1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.slot2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.slot3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+
+            this.deleteSaveSlots = new System.Windows.Forms.ToolStripMenuItem[3];
+            initStripArray(this.deleteSaveSlots);
+
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -258,38 +268,22 @@
             // 
             // selectSaveToolStripMenuItem
             // 
-            this.selectSaveToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemSaveSlot1,
-            this.toolStripMenuItemSaveSlot2,
-            this.toolStripMenuItemSaveSlot3});
+            this.selectSaveToolStripMenuItem.DropDownItems.AddRange(saveSlotStrip);
             this.selectSaveToolStripMenuItem.Name = "selectSaveToolStripMenuItem";
             this.selectSaveToolStripMenuItem.Size = new System.Drawing.Size(193, 26);
             this.selectSaveToolStripMenuItem.Text = "Select Save Slot";
-            // 
-            // toolStripMenuItemSaveSlot1
-            // 
-            this.toolStripMenuItemSaveSlot1.Enabled = false;
-            this.toolStripMenuItemSaveSlot1.Name = "toolStripMenuItemSaveSlot1";
-            this.toolStripMenuItemSaveSlot1.Size = new System.Drawing.Size(92, 26);
-            this.toolStripMenuItemSaveSlot1.Text = "1";
-            this.toolStripMenuItemSaveSlot1.Click += new System.EventHandler(this.ToolStripMenuItemSaveSlot1_Click);
-            // 
-            // toolStripMenuItemSaveSlot2
-            // 
-            this.toolStripMenuItemSaveSlot2.Enabled = false;
-            this.toolStripMenuItemSaveSlot2.Name = "toolStripMenuItemSaveSlot2";
-            this.toolStripMenuItemSaveSlot2.Size = new System.Drawing.Size(92, 26);
-            this.toolStripMenuItemSaveSlot2.Text = "2";
-            this.toolStripMenuItemSaveSlot2.Click += new System.EventHandler(this.ToolStripMenuItemSaveSlot2_Click);
-            // 
-            // toolStripMenuItemSaveSlot3
-            // 
-            this.toolStripMenuItemSaveSlot3.Enabled = false;
-            this.toolStripMenuItemSaveSlot3.Name = "toolStripMenuItemSaveSlot3";
-            this.toolStripMenuItemSaveSlot3.Size = new System.Drawing.Size(92, 26);
-            this.toolStripMenuItemSaveSlot3.Text = "3";
-            this.toolStripMenuItemSaveSlot3.Click += new System.EventHandler(this.ToolStripMenuItemSaveSlot3_Click);
-            // 
+
+            int asz = saveSlotStrip.Length;
+            for (int i = 0; i < asz; i++) {
+                int li = i;
+                this.saveSlotStrip[i].Enabled = false;
+                this.saveSlotStrip[i].Name = "saveSlotStrip" + i;
+                this.saveSlotStrip[i].Size = new System.Drawing.Size(92, 26);
+                this.saveSlotStrip[i].Text = "" + (i + 1);
+                this.saveSlotStrip[i].Click += (sender, e) => this.SaveSlotStrip_Click(li);
+            }
+
+            //
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
@@ -328,7 +322,7 @@
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(193, 26);
             this.saveAsToolStripMenuItem.Text = "Save As";
-            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.SaveAsToolStripMenuItem_Click);
+            this.saveAsToolStripMenuItem.Click += (sender, e) => this.SaveAsToolStripMenuItem_Click();
             // 
             // toolStripSeparator2
             // 
@@ -337,37 +331,21 @@
             // 
             // deleteSaveSlotToolStripMenuItem
             // 
-            this.deleteSaveSlotToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.slot1ToolStripMenuItem,
-            this.slot2ToolStripMenuItem,
-            this.slot3ToolStripMenuItem});
+            this.deleteSaveSlotToolStripMenuItem.DropDownItems.AddRange(deleteSaveSlots);
             this.deleteSaveSlotToolStripMenuItem.Name = "deleteSaveSlotToolStripMenuItem";
             this.deleteSaveSlotToolStripMenuItem.Size = new System.Drawing.Size(193, 26);
             this.deleteSaveSlotToolStripMenuItem.Text = "Delete Save Slot";
-            // 
-            // slot1ToolStripMenuItem
-            // 
-            this.slot1ToolStripMenuItem.Enabled = false;
-            this.slot1ToolStripMenuItem.Name = "slot1ToolStripMenuItem";
-            this.slot1ToolStripMenuItem.Size = new System.Drawing.Size(122, 26);
-            this.slot1ToolStripMenuItem.Text = "Slot 1";
-            this.slot1ToolStripMenuItem.Click += new System.EventHandler(this.Slot1ToolStripMenuItem_Click);
-            // 
-            // slot2ToolStripMenuItem
-            // 
-            this.slot2ToolStripMenuItem.Enabled = false;
-            this.slot2ToolStripMenuItem.Name = "slot2ToolStripMenuItem";
-            this.slot2ToolStripMenuItem.Size = new System.Drawing.Size(122, 26);
-            this.slot2ToolStripMenuItem.Text = "Slot 2";
-            this.slot2ToolStripMenuItem.Click += new System.EventHandler(this.Slot2ToolStripMenuItem_Click);
-            // 
-            // slot3ToolStripMenuItem
-            // 
-            this.slot3ToolStripMenuItem.Enabled = false;
-            this.slot3ToolStripMenuItem.Name = "slot3ToolStripMenuItem";
-            this.slot3ToolStripMenuItem.Size = new System.Drawing.Size(122, 26);
-            this.slot3ToolStripMenuItem.Text = "Slot 3";
-            this.slot3ToolStripMenuItem.Click += new System.EventHandler(this.Slot3ToolStripMenuItem_Click);
+
+            int bsz = deleteSaveSlots.Length;
+            for (int i = 0; i < bsz; ++i) {
+                int li = i;
+                this.deleteSaveSlots[i].Enabled = false;
+                this.deleteSaveSlots[i].Name = "deleteSaveSlots" + i;
+                this.deleteSaveSlots[i].Size = new System.Drawing.Size(122, 26);
+                this.deleteSaveSlots[i].Text = "Slot " + (i + 1);
+                this.deleteSaveSlots[i].Click += (sender, e) => this.DeleteSaveSlots_Click(li);
+            }
+
             // 
             // toolStripSeparator5
             // 
@@ -1974,9 +1952,9 @@
         private System.Windows.Forms.TabPage palicoTab;
         private System.Windows.Forms.TabPage palicoEquipTab;
         private System.Windows.Forms.ToolStripMenuItem selectSaveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSaveSlot1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSaveSlot2;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSaveSlot3;
+
+        private System.Windows.Forms.ToolStripMenuItem[] saveSlotStrip;
+
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ListView listViewItem;
         private System.Windows.Forms.ColumnHeader columnHeader1;
@@ -2077,9 +2055,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem deleteSaveSlotToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripMenuItem slot1ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem slot2ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem slot3ToolStripMenuItem;
+
+        private System.Windows.Forms.ToolStripMenuItem[] deleteSaveSlots;
+
         private System.Windows.Forms.Button buttonTransmogrify;
         private System.Windows.Forms.Label labelTransmogID;
         private System.Windows.Forms.Button buttonTransmogrifyPalico;

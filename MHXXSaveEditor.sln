@@ -62,6 +62,6 @@ Global
 		$13.IncludeDirectoryPaths = True
 		$13.LineAlign = 0
 		description = Modify save data for Monster Hunter XX on the Nintendo 3DS.
-		version = 0.12.01
+		version = 0.13.01
 	EndGlobalSection
 EndGlobal

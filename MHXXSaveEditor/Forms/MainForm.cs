@@ -32,7 +32,7 @@ namespace MHXXSaveEditor
         string filePath;
         string originalFileName;
         byte[] saveFile;
-        int currentPlayer, itemSelectedSlot;
+        int currentPlayer, itemSelectedSlot, currentSlot;
         public int equipSelectedSlot, palicoEqpSelectedSlot;
         SecondsToHHMMSS ttime = new SecondsToHHMMSS();
         string backupDirectory;
@@ -69,13 +69,6 @@ namespace MHXXSaveEditor
 
         private void LoadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            toolStripMenuItemSaveSlot1.Enabled = false;
-            toolStripMenuItemSaveSlot2.Enabled = false;
-            toolStripMenuItemSaveSlot3.Enabled = false;
-            slot1ToolStripMenuItem.Enabled = false;
-            slot2ToolStripMenuItem.Enabled = false;
-            slot3ToolStripMenuItem.Enabled = false;
-
             OpenFileDialog ofd = new OpenFileDialog
             {
                 Filter = "All files (*.*)|*.*",
@@ -95,43 +88,14 @@ namespace MHXXSaveEditor
             saveFile = File.ReadAllBytes(ofd.FileName); // Read all bytes from file into memory buffer
             ofd.Dispose();
 
-            if (saveFile.Length != 4726152) // Check if save file is correct or not
+            if (saveFile.Length != Constants.SIZEOF_SAVEFILE) // Check if save file is correct or not
             {
-                MessageBox.Show("This is not a MHXX save file.", "Error");
+                MessageBox.Show("This is not a MHXX 3DS save file.", "Error");
                 return;
             }
 
             // To see which character slots are enabled
-            if (saveFile[4] == 1) // First slot
-            {
-                currentPlayer = 1;
-                toolStripMenuItemSaveSlot1.Enabled = true;
-                toolStripMenuItemSaveSlot1.Checked = true;
-                slot1ToolStripMenuItem.Enabled = true;
-            }
-            if (saveFile[5] == 1) // Second slot
-            {
-                if (currentPlayer != 1)
-                {
-                    currentPlayer = 2;
-                }
-                toolStripMenuItemSaveSlot2.Enabled = true;
-                slot2ToolStripMenuItem.Enabled = true;
-            }
-            if (saveFile[6] == 1) // Third slot
-            {
-                if (currentPlayer != 1 && currentPlayer != 2)
-                {
-                    currentPlayer = 3;
-                }
-                toolStripMenuItemSaveSlot3.Enabled = true;
-                slot3ToolStripMenuItem.Enabled = true;
-            }
-            if (saveFile[4] == 0 && saveFile[5] == 0 && saveFile[6] == 0)
-            {
-                MessageBox.Show("No existing save slots used, please make one in-game first.", "Error");
-                return;
-            }
+            SetupSaveSlots();
 
             saveToolStripMenuItemSave.Enabled = true; // Enables the save toolstrip once save is loaded
             editToolStripMenuItem.Enabled = true;
@@ -139,6 +103,7 @@ namespace MHXXSaveEditor
             tabControlMain.Enabled = true;
 
             // Extract data from save file
+            
             var ext = new DataExtractor();
             ext.GetInfo(saveFile, currentPlayer, player);
 
@@ -147,55 +112,56 @@ namespace MHXXSaveEditor
             SplashScreen.CloseForm();
         }
 
+        private void SetupSaveSlots() {
+            int asz = Offsets.CHAR_SLOT_USAGE.Length;
+            currentPlayer = 0;
+            for (int i = 1; i < asz; ++i) {
+                int arrSlot = i - 1;
+                if (saveFile[Offsets.CHAR_SLOT_USAGE[i]] == 1) {
+                    currentPlayer = (currentPlayer == 0) ? i : currentPlayer;
+                    saveSlotStrip[arrSlot].Enabled = true;
+                    deleteSaveSlots[arrSlot].Enabled = true;
+                } else {
+                    saveSlotStrip[arrSlot].Checked = false;
+                    saveSlotStrip[arrSlot].Enabled = false;
+                    deleteSaveSlots[arrSlot].Enabled = false;
+                }
+            }
+
+            // If no save data, then currentPlayer is still the default (0)
+            if (currentPlayer == 0) { 
+                MessageBox.Show("No existing save slots. Make a character in game first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            currentSlot = currentPlayer - 1;
+            saveSlotStrip[currentSlot].Enabled = true;
+            saveSlotStrip[currentSlot].Checked = true;
+            deleteSaveSlots[currentSlot].Enabled = true;
+        }
+
         private void OpenBackupDirectory_Click(object sender, EventArgs e) {
             if (Directory.Exists(backupDirectory)) {
                 System.Diagnostics.Process.Start(backupDirectory);
             }
         }
 
-        private void ToolStripMenuItemSaveSlot1_Click(object sender, EventArgs e)
-        {
-            if(currentPlayer != 1)
-            {
-                currentPlayer = 1;
-                toolStripMenuItemSaveSlot1.Checked = true;
-                toolStripMenuItemSaveSlot2.Checked = false;
-                toolStripMenuItemSaveSlot3.Checked = false;
-
-                var ext = new DataExtractor();
-                ext.GetInfo(saveFile, currentPlayer, player);
-                LoadSave();
+        private void SaveSlotStrip_Click(int slot) {
+            if (currentSlot != slot) {
+                currentPlayer = (slot + 1);
+                currentSlot = slot;
+                int asz = saveSlotStrip.Length;
+                for (int i = 0; i < asz; i++) {
+                    saveSlotStrip[i].Checked = (i == slot);
+                }
+                LoadCharacterData(currentPlayer);
             }
         }
 
-        private void ToolStripMenuItemSaveSlot2_Click(object sender, EventArgs e)
-        {
-            if (currentPlayer != 2)
-            {
-                currentPlayer = 2;
-                toolStripMenuItemSaveSlot1.Checked = false;
-                toolStripMenuItemSaveSlot2.Checked = true;
-                toolStripMenuItemSaveSlot3.Checked = false;
-
-                var ext = new DataExtractor();
-                ext.GetInfo(saveFile, currentPlayer, player);
-                LoadSave();
-            }
-        }
-
-        private void ToolStripMenuItemSaveSlot3_Click(object sender, EventArgs e)
-        {
-            if (currentPlayer != 3)
-            {
-                currentPlayer = 3;
-                toolStripMenuItemSaveSlot1.Checked = false;
-                toolStripMenuItemSaveSlot2.Checked = false;
-                toolStripMenuItemSaveSlot3.Checked = true;
-
-                var ext = new DataExtractor();
-                ext.GetInfo(saveFile, currentPlayer, player);
-                LoadSave();
-            }
+        private void LoadCharacterData(int saveSlot) {
+            var ext = new DataExtractor();
+            ext.GetInfo(saveFile, saveSlot, player);
+            LoadSave();
         }
 
         private void SaveToolStripMenuItemSave_Click(object sender, EventArgs e)
@@ -1174,7 +1140,7 @@ namespace MHXXSaveEditor
             }
         }
 
-        private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        private bool SaveAsToolStripMenuItem_Click()
         {
             if (CreateBackup()) {
                 PackSaveFile();
@@ -1185,8 +1151,10 @@ namespace MHXXSaveEditor
                 if (savefile.ShowDialog() == DialogResult.OK) {
                     File.WriteAllBytes(savefile.FileName, saveFile);
                     MessageBox.Show("File saved", "Saved!");
+                    return true;
                 }
             }
+            return false;
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1245,52 +1213,54 @@ namespace MHXXSaveEditor
                 comboBoxItem.SelectedIndex = 0;
         }
 
-        private void Slot1ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Are you sure you want to delete this save slot?", "Delete save slot 1", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                DeleteSaveSlot(1);
-        }
-
-        private void Slot2ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Are you sure you want to delete this save slot?", "Delete save slot 2", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                DeleteSaveSlot(2);
-        }
-
-        private void Slot3ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Are you sure you want to delete this save slot?", "Delete save slot 3", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                DeleteSaveSlot(3);
+        private void DeleteSaveSlots_Click(int slot) {
+            if (MessageBox.Show("Are you sure you want to delete this save slot?\n\nAny unsaved changes will be lost.",
+                                "Delete save slot " + (slot + 1),
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Warning)
+                                == DialogResult.Yes) {
+                DeleteSaveSlot(slot);
+            }
         }
 
         private void DeleteSaveSlot(int slotNumber)
         {
-            int theOffset;
+            int charSlotUsed = slotNumber + 1;
+            // fix this using x_CHAR_OFFSET from offsets.cs
+            int offsEin = 0x13;
+            int offsZwei = 0x12;
+            int offsDrei = 0x11;
+            int offsVier = 0x10;
+            int slotOffs = slotNumber * 4;
 
-            if (slotNumber == 1)
-            {
-                string firstSlot = saveFile[0x13].ToString("X2") + saveFile[0x12].ToString("X2") + saveFile[0x11].ToString("X2") + saveFile[0x10].ToString("X2");
-                theOffset = int.Parse(firstSlot, System.Globalization.NumberStyles.HexNumber);
-                saveFile[4] = 0;
-            }
-            else if (slotNumber == 2)
-            {
-                string secondSlot = saveFile[0x17].ToString("X2") + saveFile[0x16].ToString("X2") + saveFile[0x15].ToString("X2") + saveFile[0x14].ToString("X2");
-                theOffset = int.Parse(secondSlot, System.Globalization.NumberStyles.HexNumber);
-                saveFile[5] = 0;
-            }
-            else
-            {
-                string thirdSlot = saveFile[0x21].ToString("X2") + saveFile[0x20].ToString("X2") + saveFile[0x19].ToString("X2") + saveFile[0x18].ToString("X2");
-                theOffset = int.Parse(thirdSlot, System.Globalization.NumberStyles.HexNumber);
-                saveFile[6] = 0;
-            }
+            string slot = saveFile[offsEin + slotOffs].ToString("X2")
+                        + saveFile[offsZwei + slotOffs].ToString("X2")
+                        + saveFile[offsDrei + slotOffs].ToString("X2")
+                        + saveFile[offsVier + slotOffs].ToString("X2");
+            int theOffset = int.Parse(slot, System.Globalization.NumberStyles.HexNumber);
+            saveFile[Offsets.CHAR_SLOT_USAGE[charSlotUsed]] = 0;
 
             Array.Copy(Properties.Resources.CleanSave, 0, saveFile, theOffset, Properties.Resources.CleanSave.Length);
-            File.WriteAllBytes(filePath, saveFile);
-            MessageBox.Show("The save slot has been deleted", "Save slot " + slotNumber +  "deleted");
-            MessageBox.Show("This program will now restart");
-            Application.Restart();
+
+            MessageBox.Show("The save slot has been deleted.", "Save slot " + charSlotUsed +  " deleted");
+            SetupSaveSlots();
+            SaveSlotStrip_Click(currentSlot);
+            if (currentPlayer == 0) { /* last save was deleted */
+                if (MessageBox.Show("No save slots left after deletion. This editor requires at least one existing save.\n\nSave your changes?",
+                    "No saves left!",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Exclamation) == DialogResult.Yes) {
+                    if (SaveAsToolStripMenuItem_Click()) {
+                        MessageBox.Show("The program will now restart.");
+                        Application.Restart();
+                    }
+                } else {
+                    MessageBox.Show("Unable to continue editing save.\n\nRestart the program to begin editing.", "No character data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    editToolStripMenuItem.Enabled = false;
+                    tabControlMain.Enabled = false;
+                }
+            }
+            LoadCharacterData(currentPlayer);
         }
 
         private void ButtonTransmogrify_Click(object sender, EventArgs e)
@@ -1450,7 +1420,7 @@ namespace MHXXSaveEditor
                     return;
                 }
 
-                string filePath = ofd.FileName.ToString();
+                string filezaPath = ofd.FileName.ToString();
                 byte[] equipmentLoad = File.ReadAllBytes(filePath);
                 Array.Copy(equipmentLoad, 800 * 36, player.EquipmentInfo, 800 * 36, (2000 * 36) - (800 * 36));
                 LoadEquipmentBox();

@@ -1,11 +1,18 @@
 ﻿namespace MHXXSaveEditor.Data
 {
-    class Offsets
-    {
+    class Offsets {
         //Header Data
         public const int FIRST_CHAR_SLOT_USED = 0x04; //Size 1
         public const int SECOND_CHAR_SLOT_USED = 0x05; //Size 1
         public const int THIRD_CHAR_SLOT_USED = 0x06; //Size 1
+
+        public static int[] CHAR_SLOT_USAGE = {
+            0,
+            FIRST_CHAR_SLOT_USED,
+            SECOND_CHAR_SLOT_USED,
+            THIRD_CHAR_SLOT_USED
+        };
+
         public const int FIRST_CHARACTER_OFFSET = 0x10; //Size 4
         public const int SECOND_CHARACTER_OFFSET = 0x14; //Size 4
         public const int THIRD_CHARACTER_OFFSET = 0x18; //Size 4

@@ -2,7 +2,9 @@ namespace MHXXSaveEditor.Data
 {
     class Constants
     {
-        public const string EDITOR_VERSION = "MHXX Save Editor v0.12.01";
+        public const string EDITOR_VERSION = "MHXX Save Editor v0.13.01";
+
+        public const int SIZEOF_SAVEFILE = 4726152;
 
         public const int SIZEOF_NAME = 32;
 
