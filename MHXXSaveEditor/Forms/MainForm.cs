@@ -130,7 +130,7 @@ namespace MHXXSaveEditor
 
             // If no save data, then currentPlayer is still the default (0)
             if (currentPlayer == 0) { 
-                MessageBox.Show("No existing save slots. Make a character in game first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No existing save slots. Make a character in game.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -233,12 +233,12 @@ namespace MHXXSaveEditor
             {
                 if (Convert.ToInt32(player.PalicoData[a * Constants.SIZEOF_PALICO]) != 0) // Check if first character in name != 0, if != 0 means a palico exist in that block (or at least in my opinion)
                 {
-                    byte[] palicoNameByte = new byte[32];
+                    byte[] palicoNameByte = new byte[PalicoOffsets.SIZEOF_NAME];
                     string palicoName, palicoType;
 
                     Array.Copy(player.PalicoData, a * Constants.SIZEOF_PALICO, palicoNameByte, 0, Constants.SIZEOF_NAME);
                     palicoName = Encoding.UTF8.GetString(palicoNameByte);
-                    palicoType = GameConstants.PalicoBias[Convert.ToInt32(player.PalicoData[(a * Constants.SIZEOF_PALICO) + 37])];
+                    palicoType = GameConstants.PalicoBias[Convert.ToInt32(player.PalicoData[(a * Constants.SIZEOF_PALICO) + PalicoOffsets.BIAS])];
 
                     string[] arr = new string[3];
                     arr[0] = (a + 1).ToString();
@@ -248,8 +248,8 @@ namespace MHXXSaveEditor
                     {
                         UseItemStyleForSubItems = false
                     };
-                    int palicoDLC = player.PalicoData[(a * Constants.SIZEOF_PALICO) + 0x0E0];
-                    if (palicoDLC > 100)
+                    int palicoStatus = player.PalicoData[(a * Constants.SIZEOF_PALICO) + PalicoOffsets.STATUS];
+                    if (palicoStatus > PalicoOffsets.DLC_STATUS)
                     {
                         plc.SubItems[1].ForeColor = Color.Green;
                     }
@@ -934,7 +934,7 @@ namespace MHXXSaveEditor
             }
             else
             {
-                MessageBox.Show("Please select a palico first!\nIf you don't have any, please hire one from in-game first.");
+                MessageBox.Show("Please select a Palico first!\nIf you don't have any, hire one in game.");
             }
         }
 
@@ -950,7 +950,7 @@ namespace MHXXSaveEditor
                 byte[] palicoNameByte = new byte[32];
                 Array.Copy(player.PalicoData, selectedSlot * Constants.SIZEOF_PALICO, palicoNameByte, 0, Constants.SIZEOF_NAME);
                 listViewPalico.SelectedItems[0].SubItems[1].Text = Encoding.UTF8.GetString(palicoNameByte);
-                listViewPalico.SelectedItems[0].SubItems[2].Text = GameConstants.PalicoBias[Convert.ToInt32(player.PalicoData[(selectedSlot * Constants.SIZEOF_PALICO) + 37])];
+                listViewPalico.SelectedItems[0].SubItems[2].Text = GameConstants.PalicoBias[Convert.ToInt32(player.PalicoData[(selectedSlot * Constants.SIZEOF_PALICO) + PalicoOffsets.BIAS])];
             }
         }
 
@@ -1226,17 +1226,12 @@ namespace MHXXSaveEditor
         private void DeleteSaveSlot(int slotNumber)
         {
             int charSlotUsed = slotNumber + 1;
-            // fix this using x_CHAR_OFFSET from offsets.cs
-            int offsEin = 0x13;
-            int offsZwei = 0x12;
-            int offsDrei = 0x11;
-            int offsVier = 0x10;
-            int slotOffs = slotNumber * 4;
+            int offs = Offsets.CHAR_SLOT_OFFSET[slotNumber];
 
-            string slot = saveFile[offsEin + slotOffs].ToString("X2")
-                        + saveFile[offsZwei + slotOffs].ToString("X2")
-                        + saveFile[offsDrei + slotOffs].ToString("X2")
-                        + saveFile[offsVier + slotOffs].ToString("X2");
+            string slot = saveFile[offs + 0x03].ToString("X2")
+                        + saveFile[offs + 0x02].ToString("X2")
+                        + saveFile[offs + 0x01].ToString("X2")
+                        + saveFile[offs + 0x00].ToString("X2");
             int theOffset = int.Parse(slot, System.Globalization.NumberStyles.HexNumber);
             saveFile[Offsets.CHAR_SLOT_USAGE[charSlotUsed]] = 0;
 

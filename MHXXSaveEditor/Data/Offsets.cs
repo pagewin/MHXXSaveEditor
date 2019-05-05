@@ -17,6 +17,12 @@
         public const int SECOND_CHARACTER_OFFSET = 0x14; //Size 4
         public const int THIRD_CHARACTER_OFFSET = 0x18; //Size 4
 
+        public static int[] CHAR_SLOT_OFFSET = {
+            FIRST_CHARACTER_OFFSET,
+            SECOND_CHARACTER_OFFSET,
+            THIRD_CHARACTER_OFFSET
+        };
+
         //Character Offsets [CHARACTER BASE +  CHARACTER OFFSET]
         public const int NAME_OFFSET = 0x23B7D; // size 4
         public const int PLAY_TIME_OFFSET = 0x20; //Size 4m this only shows on the save screen

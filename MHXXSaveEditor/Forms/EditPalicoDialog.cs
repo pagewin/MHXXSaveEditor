@@ -11,6 +11,7 @@ namespace MHXXSaveEditor.Forms
     {
         private MainForm mainForm;
         int selectedPalico, maximumSupportMoves, maximumSkills, palicoStatus;
+        Palico kitty;
 
         public EditPalicoDialog(MainForm mainForm, string palicoName, int selectedSlot) {
             InitializeComponent();
@@ -19,6 +20,7 @@ namespace MHXXSaveEditor.Forms
             Text = "Editing Palico - " + palicoName;
             comboBoxBias.Items.AddRange(GameConstants.PalicoBias);
             comboBoxTarget.Items.AddRange(GameConstants.PalicoTarget);
+            kitty = new Palico(mainForm.player.PalicoData, selectedSlot);
             LoadPalico();
             LoadEquippedSupportMoves();
             LoadEquippedSkills();

@@ -28,8 +28,8 @@ namespace MHXXSaveEditor.Data
         /* Fill a given array starting at index 0.
          * Offsets and sizes should be taken from Data.PalicoOffsets.
          */
-        private void CopyFromOriginalData(byte[] targetArray, byte size, ushort offset) {
-            Array.Copy(OriginalData, (SelectedPalico + offset), targetArray, 0, size);
+        private void CopyFromOriginalData(byte[] targetArray, int size, int offset) {
+            Array.Copy(OriginalData, offset, targetArray, 0, targetArray.Length);
         }
 
 
@@ -90,7 +90,7 @@ namespace MHXXSaveEditor.Data
         public byte[] EquippedArmor { get; set; }
 
 
-        public Palico(byte[] palicoData, byte slot) {
+        public Palico(byte[] palicoData, int slot) {
             SelectedPalico = slot * Constants.SIZEOF_PALICO;
             CopyOriginalData(palicoData);
 
@@ -99,8 +99,8 @@ namespace MHXXSaveEditor.Data
             CopyGeneralStats();
             SetBiasType();
 
-            SetSkillRng();
             CopySkills();
+            SetSkillRng();
 
             CopySupportMoves();
             SetSupportMoveRng();
@@ -113,7 +113,7 @@ namespace MHXXSaveEditor.Data
         /* Keep a copy of the original data until save time */
         private void CopyOriginalData(byte[] palicoData) {
             OriginalData = new byte[Constants.SIZEOF_PALICO];
-            Array.Copy(palicoData, SelectedPalico, OriginalData, 0, Constants.SIZEOF_PALICO);
+            Buffer.BlockCopy(palicoData, SelectedPalico, OriginalData, 0, OriginalData.Length);
         }
 
         private void CopyNames() {
@@ -154,7 +154,7 @@ namespace MHXXSaveEditor.Data
         }
 
         private void SetBiasType() {
-            Bias = (BiasType) Convert.ToByte(BiasBytes);
+            Bias = (BiasType) Convert.ToByte(BiasBytes[0]);
             Charisma = (Bias == BiasType.Charisma);
         }
 
@@ -228,16 +228,16 @@ namespace MHXXSaveEditor.Data
 
         private bool CheckDlc() {
             return (Status[0] >= 128 // SIZEOF_STATUS is 1, so a single-element array
-                    && OriginalOwner == PalicoOffsets.DLC_MASTER
-                    && Namegiver == PalicoOffsets.DLC_MASTER);
+                    && OriginalOwner == DLC_MASTER
+                    && Namegiver == DLC_MASTER);
         }
 
         /* making assumptions here; maybe this doesn't work */
         /* One-way operation -- warn user before applying in Form */
         private void SetDlc() {
-            Array.Copy(PalicoOffsets.DLC_MASTER, OriginalOwner, SIZEOF_ORIGINAL_OWNER_ID);
-            Array.Copy(PalicoOffsets.DLC_MASTER, Namegiver, SIZEOF_ORIGINAL_OWNER_ID);
-            byte[] newStatus = { (byte) (Status[0] + PalicoOffsets.DLC_STATUS) }; // why does C# cast bytes to int before addition instead of having + operator for bytes?
+            Array.Copy(DLC_MASTER, OriginalOwner, SIZEOF_ORIGINAL_OWNER_ID);
+            Array.Copy(DLC_MASTER, Namegiver, SIZEOF_ORIGINAL_OWNER_ID);
+            byte[] newStatus = { (byte) (Status[0] + DLC_STATUS) }; // why does C# cast bytes to int before addition instead of having + operator for bytes?
             Array.Copy(newStatus, Status, SIZEOF_STATUS);
         }
 
