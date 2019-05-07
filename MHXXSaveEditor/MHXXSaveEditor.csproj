@@ -161,7 +161,8 @@
         </Compile>
         <Compile Include="Data\Palico.cs" />
         <Compile Include="Data\PalicoOffsets.cs" />
-        <Compile Include="Data\HunterOffsets.cs" />
+        <Compile Include="Data\GuildCardOffsets.cs" />
+        <Compile Include="Util\StringUtils.cs" />
     </ItemGroup>
     <ItemGroup>
         <None Include="App.config" />

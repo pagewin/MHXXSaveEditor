@@ -54,6 +54,7 @@
 
         // Guild Card
         public byte[] GuildCardData { get; set; }
+        public string ShortGuildId { get; set; }
         public byte[] ArenaData { get; set; }
 
         // Shoutouts

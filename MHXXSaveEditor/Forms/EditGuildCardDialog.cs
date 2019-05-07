@@ -3,6 +3,7 @@ using System.Text;
 using System.Windows.Forms;
 using MHXXSaveEditor.Data;
 using MHXXSaveEditor.Util;
+using static MHXXSaveEditor.Data.GuildCardOffsets;
 
 namespace MHXXSaveEditor.Forms
 {
@@ -10,6 +11,18 @@ namespace MHXXSaveEditor.Forms
     {
         private MainForm MainForm;
         SecondsToHHMMSS ttime = new SecondsToHHMMSS();
+
+        private void CopyFromGuildCard(byte[] target, int offset) {
+            Array.Copy(MainForm.player.GuildCardData, offset, target, 0, target.Length);
+        }
+
+        private void OverwriteGuildCard(byte[] source, int offset) {
+            Array.Copy(source, 0, MainForm.player.GuildCardData, offset, source.Length);
+        }
+
+        private void OverwriteGuildCard(byte[] source, int offset, int len) {
+            Array.Copy(source, 0, MainForm.player.GuildCardData, offset, len);
+        }
 
         public EditGuildCardDialog(MainForm mainForm)
         {
@@ -30,54 +43,48 @@ namespace MHXXSaveEditor.Forms
         private void ButtonOkay_Click(object sender, EventArgs e)
         {
             byte[] timeByte = BitConverter.GetBytes((int)numericUpDownGCPlayTime.Value);
-            for (int a = 0; a < 4; a++)
-            {
-                MainForm.player.GuildCardData[0x914 + a] = timeByte[a];
-            }
+            OverwriteGuildCard(timeByte, PLAYTIME);
 
-            byte[] gcBytes = new byte[textBoxGCID.Text.Length / 2];
+            byte[] guildCardId = new byte[textBoxGCID.Text.Length / 2];
             for (int a = 0; a < textBoxGCID.Text.Length; a += 2)
             {
-                gcBytes[a / 2] = Convert.ToByte(textBoxGCID.Text.Substring(a, 2), 16);
+                guildCardId[a / 2] = Convert.ToByte(textBoxGCID.Text.Substring(a, 2), 16);
             }
 
-            for (int a = 0; a < 8; a++)
-            {
-                MainForm.player.GuildCardData[0x8b0 + a] = gcBytes[a];
-            }
+            OverwriteGuildCard(guildCardId, GUILD_CARD_ID);
+            string gcID = StringUtils.BytesToHexString(guildCardId);
+            MainForm.player.ShortGuildId = gcID.Substring(0, 8);
 
             Close();
         }
 
         public void LoadGeneral()
         {
-            byte[] nameByte = new byte[12];
-            byte[] timeByte = new byte[4];
-            string gcID = "";
-            for(int a = 0; a < 12; a++)
-            {
-                nameByte[a] = MainForm.player.GuildCardData[a];
-            }
-            for(int a = 0x8b0; a < 0x8b8; a++)
-            {
-                gcID += MainForm.player.GuildCardData[a].ToString("X2");
-            }
-            Array.Copy(MainForm.player.GuildCardData, 0x914, timeByte, 0, 4);
+            byte[] nameByte = new byte[SIZEOF_NAME];
+            byte[] playTime = new byte[SIZEOF_PLAYTIME];
+            byte[] guildCardId = new byte[SIZEOF_GUILD_CARD_ID];
+
+            CopyFromGuildCard(guildCardId, GUILD_CARD_ID);
+            string gcID = StringUtils.BytesToHexString(guildCardId);
+            MainForm.player.ShortGuildId = gcID.Substring(0, 8);
+
+            CopyFromGuildCard(nameByte, NAME_FULLWIDTH);
+            CopyFromGuildCard(playTime, PLAYTIME);
 
             textBoxGCName.Text = Encoding.Unicode.GetString(nameByte);
             textBoxGCID.Text = gcID;
-            numericUpDownGCPlayTime.Value = BitConverter.ToInt32(timeByte, 0);
+            numericUpDownGCPlayTime.Value = BitConverter.ToInt32(playTime, 0);
         }
 
         public void LoadQuests()
         {
-            numericUpDownVillageLow.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, 0x85e);
-            numericUpDownVillageHigh.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, 0x860);
-            numericUpDownHHLow.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, 0x862);
-            numericUpDownHHHigh.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, 0x864);
-            numericUpDownGRank.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, 0x866);
-            numericUpDownSpecialPermit.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, 0x868);
-            numericUpDownArena.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, 0x86A);
+            numericUpDownVillageLow.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, COMPLETED_VILLAGE_LOW);
+            numericUpDownVillageHigh.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, COMPLETED_VILLAGE_HIGH);
+            numericUpDownHHLow.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, COMPLETED_HUB_LOW);
+            numericUpDownHHHigh.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, COMPLETED_HUB_HIGH);
+            numericUpDownGRank.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, COMPLETED_G_RANK);
+            numericUpDownSpecialPermit.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, COMPLETED_SPECIAL_PERMIT);
+            numericUpDownArena.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, COMPLETED_ARENA);
         }
 
         public void LoadWeapons()
@@ -85,9 +92,9 @@ namespace MHXXSaveEditor.Forms
             comboBoxWeaponType.Items.Clear();
             comboBoxWeaponType.Items.AddRange(GameConstants.HuntWeapons);
             comboBoxWeaponType.SelectedIndex = 0;
-            numericUpDownVillageCount.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, 0x8BA);
-            numericUpDownHubCount.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, 0x8D8);
-            numericUpDownArenaCount.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, 0x8F6);
+            numericUpDownVillageCount.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, WEAPON_USAGE_VILLAGE);
+            numericUpDownHubCount.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, WEAPON_USAGE_HUB);
+            numericUpDownArenaCount.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, WEAPON_USAGE_ARENA);
         }
 
         private void NumericUpDownGCPlayTime_ValueChanged(object sender, EventArgs e)
@@ -98,30 +105,27 @@ namespace MHXXSaveEditor.Forms
 
         private void ComboBoxWeaponType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            numericUpDownVillageCount.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, 0x8BA + (comboBoxWeaponType.SelectedIndex * 2));
-            numericUpDownHubCount.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, 0x8D8 + (comboBoxWeaponType.SelectedIndex * 2));
-            numericUpDownArenaCount.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, 0x8F6 + (comboBoxWeaponType.SelectedIndex * 2));
+            numericUpDownVillageCount.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, WEAPON_USAGE_VILLAGE + (comboBoxWeaponType.SelectedIndex * 2));
+            numericUpDownHubCount.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, WEAPON_USAGE_HUB + (comboBoxWeaponType.SelectedIndex * 2));
+            numericUpDownArenaCount.Value = BitConverter.ToInt16(MainForm.player.GuildCardData, WEAPON_USAGE_ARENA + (comboBoxWeaponType.SelectedIndex * 2));
         }
 
         private void NumericUpDownVillageCount_ValueChanged(object sender, EventArgs e)
         {
             byte[] numberBytes = BitConverter.GetBytes((int)numericUpDownVillageCount.Value);
-            MainForm.player.GuildCardData[0x8BA + (comboBoxWeaponType.SelectedIndex * 2)] = numberBytes[0];
-            MainForm.player.GuildCardData[0x8BA + (comboBoxWeaponType.SelectedIndex * 2) + 1] = numberBytes[1];
+            OverwriteGuildCard(numberBytes, WEAPON_USAGE_VILLAGE + (comboBoxWeaponType.SelectedIndex * 2), SIZEOF_SINGLE_WEAPON_USAGE);
         }
 
         private void NumericUpDownHubCount_ValueChanged(object sender, EventArgs e)
         {
             byte[] numberBytes = BitConverter.GetBytes((int)numericUpDownHubCount.Value);
-            MainForm.player.GuildCardData[0x8D8 + (comboBoxWeaponType.SelectedIndex * 2)] = numberBytes[0];
-            MainForm.player.GuildCardData[0x8D8 + (comboBoxWeaponType.SelectedIndex * 2) + 1] = numberBytes[1];
+            OverwriteGuildCard(numberBytes, WEAPON_USAGE_HUB + (comboBoxWeaponType.SelectedIndex * 2), SIZEOF_SINGLE_WEAPON_USAGE);
         }
 
         private void NumericUpDownArenaCount_ValueChanged(object sender, EventArgs e)
         {
             byte[] numberBytes = BitConverter.GetBytes((int)numericUpDownArenaCount.Value);
-            MainForm.player.GuildCardData[0x8F6 + (comboBoxWeaponType.SelectedIndex * 2)] = numberBytes[0];
-            MainForm.player.GuildCardData[0x8F6 + (comboBoxWeaponType.SelectedIndex * 2) + 1] = numberBytes[1];
+            OverwriteGuildCard(numberBytes, WEAPON_USAGE_ARENA + (comboBoxWeaponType.SelectedIndex * 2), SIZEOF_SINGLE_WEAPON_USAGE);
         }
 
         public void LoadMonsters()
@@ -168,50 +172,43 @@ namespace MHXXSaveEditor.Forms
         private void NumericUpDownVillageLow_ValueChanged(object sender, EventArgs e)
         {
             byte[] numberBytes = BitConverter.GetBytes((int)numericUpDownVillageLow.Value);
-            MainForm.player.GuildCardData[0x85e] = numberBytes[0];
-            MainForm.player.GuildCardData[0x85f] = numberBytes[1];
+            OverwriteGuildCard(numberBytes, COMPLETED_VILLAGE_LOW, SIZEOF_COMPLETED_QUESTS);
         }
 
         private void NumericUpDownVillageHigh_ValueChanged(object sender, EventArgs e)
         {
             byte[] numberBytes = BitConverter.GetBytes((int)numericUpDownVillageHigh.Value);
-            MainForm.player.GuildCardData[0x860] = numberBytes[0];
-            MainForm.player.GuildCardData[0x861] = numberBytes[1];
+            OverwriteGuildCard(numberBytes, COMPLETED_VILLAGE_HIGH, SIZEOF_COMPLETED_QUESTS);
         }
 
         private void NumericUpDownHHLow_ValueChanged(object sender, EventArgs e)
         {
             byte[] numberBytes = BitConverter.GetBytes((int)numericUpDownHHLow.Value);
-            MainForm.player.GuildCardData[0x862] = numberBytes[0];
-            MainForm.player.GuildCardData[0x863] = numberBytes[1];
+            OverwriteGuildCard(numberBytes, COMPLETED_HUB_LOW, SIZEOF_COMPLETED_QUESTS);
         }
 
         private void NumericUpDownHHHigh_ValueChanged(object sender, EventArgs e)
         {
             byte[] numberBytes = BitConverter.GetBytes((int)numericUpDownHHHigh.Value);
-            MainForm.player.GuildCardData[0x864] = numberBytes[0];
-            MainForm.player.GuildCardData[0x865] = numberBytes[1];
+            OverwriteGuildCard(numberBytes, COMPLETED_HUB_HIGH, SIZEOF_COMPLETED_QUESTS);
         }
 
         private void NumericUpDownGRank_ValueChanged(object sender, EventArgs e)
         {
             byte[] numberBytes = BitConverter.GetBytes((int)numericUpDownGRank.Value);
-            MainForm.player.GuildCardData[0x866] = numberBytes[0];
-            MainForm.player.GuildCardData[0x867] = numberBytes[1];
+            OverwriteGuildCard(numberBytes, COMPLETED_G_RANK, SIZEOF_COMPLETED_QUESTS);
         }
 
         private void NumericUpDownSpecialPermit_ValueChanged(object sender, EventArgs e)
         {
             byte[] numberBytes = BitConverter.GetBytes((int)numericUpDownSpecialPermit.Value);
-            MainForm.player.GuildCardData[0x868] = numberBytes[0];
-            MainForm.player.GuildCardData[0x869] = numberBytes[1];
+            OverwriteGuildCard(numberBytes, COMPLETED_SPECIAL_PERMIT, SIZEOF_COMPLETED_QUESTS);
         }
 
         private void NumericUpDownArena_ValueChanged(object sender, EventArgs e)
         {
             byte[] numberBytes = BitConverter.GetBytes((int)numericUpDownArena.Value);
-            MainForm.player.GuildCardData[0x86A] = numberBytes[0];
-            MainForm.player.GuildCardData[0x86B] = numberBytes[1];
+            OverwriteGuildCard(numberBytes, COMPLETED_ARENA, SIZEOF_COMPLETED_QUESTS);
         }
 
         public void LoadArena()

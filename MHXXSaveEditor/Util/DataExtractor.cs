@@ -128,6 +128,12 @@ namespace MHXXSaveEditor.Util
             Array.Copy(saveFile, player.SaveOffset + Offsets.GUILDCARD_OFFSET, player.GuildCardData, 0, Constants.SIZEOF_GUILDCARD);
             Array.Copy(saveFile, player.SaveOffset + Offsets.GUILDCARD_ARENA_LOG_OFFSET, player.ArenaData, 0, Constants.SIZEOF_ARENALOG);
 
+            /* quick fix for Palico owner ID stuff */
+            byte[] guildId = new byte[8];
+            Array.Copy(player.GuildCardData, GuildCardOffsets.GUILD_CARD_ID, guildId, 0, GuildCardOffsets.SIZEOF_GUILD_CARD_ID);
+            string gcId = StringUtils.BytesToHexString(guildId);
+            player.ShortGuildId = gcId.Substring(0, 8);
+
             // Shoutouts
             Array.Copy(saveFile, player.SaveOffset + Offsets.MANUAL_SHOUTOUT_OFFSETS, player.ManualShoutouts, 0, Constants.SIZEOF_MANUAL_SHOUTOUTS);
             Array.Copy(saveFile, player.SaveOffset + Offsets.AUTOMATIC_SHOUTOUT_OFFSETS, player.AutomaticShoutouts, 0, Constants.SIZEOF_AUTOMATIC_SHOUTOUTS);

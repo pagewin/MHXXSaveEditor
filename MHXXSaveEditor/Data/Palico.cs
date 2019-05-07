@@ -1,37 +1,23 @@
 ﻿using System;
-using System.Text;
 using static MHXXSaveEditor.Data.PalicoOffsets;
+using static MHXXSaveEditor.Util.StringUtils;
 
 namespace MHXXSaveEditor.Data
 {
     public class Palico
     {
-        /* Bytes --> hexadecimal string */
-        public string BytesToHexString(byte[] bytes) {
-            string str = "";
-            foreach (var bit in bytes) {
-                str += bit.ToString("X2");
-            }
-            return str;
-        }
-
-        /* Bytes --> readable UTF-8 string */
-        public string BytesToUtf8String(byte[] bytes) {
-            return Encoding.UTF8.GetString(bytes);
-        }
-
-        /* Bytes --> RGBA as hexadecimal string */
-        public string ColorBytesToString(byte[] rgba) {
-            return BitConverter.ToString(rgba).Replace("-", string.Empty);
-        }
 
         /* Fill a given array starting at index 0.
          * Offsets and sizes should be taken from Data.PalicoOffsets.
          */
-        private void CopyFromOriginalData(byte[] targetArray, int size, int offset) {
+        private void CopyFromOriginalData(byte[] targetArray, int offset) {
             Array.Copy(OriginalData, offset, targetArray, 0, targetArray.Length);
         }
 
+        /* Finalize any changes made by rewriting the original byte array */
+        private void OverwriteOriginalData(byte[] sourceArray, int offset) {
+            Array.Copy(sourceArray, 0, OriginalData, offset, sourceArray.Length);
+        }
 
         public int SelectedPalico { get; set; }
         public byte[] OriginalData { get; set; }
@@ -110,6 +96,47 @@ namespace MHXXSaveEditor.Data
             CopyStatus();
         }
 
+        private void SaveNewData() {
+            OverwriteOriginalData(Name, NAME);
+            OverwriteOriginalData(Namegiver, NAMEGIVER);
+            OverwriteOriginalData(LastMaster, LAST_MASTER);
+            OverwriteOriginalData(Greeting, GREETING);
+            OverwriteOriginalData(UniqueId, PALICO_ID);
+            OverwriteOriginalData(ScoutId, SCOUT_ID);
+            OverwriteOriginalData(OriginalOwner, ORIGINAL_OWNER_ID);
+
+            OverwriteOriginalData(Level, LEVEL);
+            OverwriteOriginalData(Exp, EXP);
+            OverwriteOriginalData(Enthusiasm, ENTHUSIASM);
+            OverwriteOriginalData(BiasBytes, BIAS);
+            OverwriteOriginalData(Target, TARGET);
+            OverwriteOriginalData(Status, STATUS);
+            OverwriteOriginalData(Training, TRAINING);
+            OverwriteOriginalData(Job, JOB);
+            OverwriteOriginalData(Prowler, PROWLER);
+
+            OverwriteOriginalData(SupportMoveRng, SUPPORT_MOVE_RNG);
+            OverwriteOriginalData(SkillRng, SKILL_RNG);
+            OverwriteOriginalData(EquippedSupportMoves, EQUIPPED_SUPPORT_MOVES);
+            OverwriteOriginalData(EquippedSkills, EQUIPPED_SKILLS);
+            OverwriteOriginalData(KnownSupportMoves, KNOWN_SUPPORT_MOVES);
+            OverwriteOriginalData(KnownSkills, KNOWN_SKILLS);
+
+            /* editing palico gear is not implemented
+            OverwriteOriginalData(EquippedArmor, ARMOR);
+            OverwriteOriginalData(EquippedWeapon, WEAPON);
+            */
+
+            OverwriteOriginalData(CoatStyle, COAT);
+            OverwriteOriginalData(EarStyle, EARS);
+            OverwriteOriginalData(TailStyle, TAIL);
+            OverwriteOriginalData(ClothingStyle, CLOTHING);
+            OverwriteOriginalData(CoatColor, COAT_COLOR);
+            OverwriteOriginalData(LeftEyeColor, LEFT_EYE_COLOR);
+            OverwriteOriginalData(RightEyeColor, RIGHT_EYE_COLOR);
+            OverwriteOriginalData(ClothingColor, CLOTHING_COLOR);
+        }
+
         /* Keep a copy of the original data until save time */
         private void CopyOriginalData(byte[] palicoData) {
             OriginalData = new byte[Constants.SIZEOF_PALICO];
@@ -122,10 +149,10 @@ namespace MHXXSaveEditor.Data
             LastMaster = new byte[SIZEOF_NAME];
             Greeting = new byte[SIZEOF_GREETING];
 
-            CopyFromOriginalData(Name, SIZEOF_NAME, NAME);
-            CopyFromOriginalData(Namegiver, SIZEOF_NAME, NAMEGIVER);
-            CopyFromOriginalData(LastMaster, SIZEOF_NAME, LAST_MASTER);
-            CopyFromOriginalData(Greeting, SIZEOF_GREETING, GREETING);
+            CopyFromOriginalData(Name, NAME);
+            CopyFromOriginalData(Namegiver, NAMEGIVER);
+            CopyFromOriginalData(LastMaster, LAST_MASTER);
+            CopyFromOriginalData(Greeting, GREETING);
         }
 
         private void CopyIds() {
@@ -133,9 +160,9 @@ namespace MHXXSaveEditor.Data
             ScoutId = new byte[SIZEOF_SCOUT_ID];
             UniqueId = new byte[SIZEOF_PALICO_ID];
 
-            CopyFromOriginalData(OriginalOwner, SIZEOF_NAME, ORIGINAL_OWNER_ID);
-            CopyFromOriginalData(ScoutId, SIZEOF_SCOUT_ID, SCOUT_ID);
-            CopyFromOriginalData(UniqueId, SIZEOF_PALICO_ID, PALICO_ID);
+            CopyFromOriginalData(OriginalOwner, ORIGINAL_OWNER_ID);
+            CopyFromOriginalData(ScoutId, SCOUT_ID);
+            CopyFromOriginalData(UniqueId, PALICO_ID);
         }
 
         /* Level, exp, enthusiasm, target, bias */
@@ -146,11 +173,11 @@ namespace MHXXSaveEditor.Data
             Target = new byte[SIZEOF_TARGET];
             BiasBytes = new byte[SIZEOF_BIAS];
 
-            CopyFromOriginalData(Level, SIZEOF_LEVEL, LEVEL);
-            CopyFromOriginalData(Exp, SIZEOF_EXP, EXP);
-            CopyFromOriginalData(Enthusiasm, SIZEOF_ENTHUSIASM, ENTHUSIASM);
-            CopyFromOriginalData(Target, SIZEOF_TARGET, TARGET);
-            CopyFromOriginalData(BiasBytes, SIZEOF_BIAS, BIAS);
+            CopyFromOriginalData(Level, LEVEL);
+            CopyFromOriginalData(Exp, EXP);
+            CopyFromOriginalData(Enthusiasm, ENTHUSIASM);
+            CopyFromOriginalData(Target, TARGET);
+            CopyFromOriginalData(BiasBytes, BIAS);
         }
 
         private void SetBiasType() {
@@ -160,7 +187,7 @@ namespace MHXXSaveEditor.Data
 
         private void CopySkills() {
             SkillRng = new byte[SIZEOF_RNG];
-            CopyFromOriginalData(SkillRng, SIZEOF_RNG, SKILL_RNG);
+            CopyFromOriginalData(SkillRng, SKILL_RNG);
         }
 
         private void SetSkillRng() {
@@ -171,7 +198,7 @@ namespace MHXXSaveEditor.Data
 
         private void CopySupportMoves() {
             SupportMoveRng = new byte[SIZEOF_RNG];
-            CopyFromOriginalData(SupportMoveRng, SIZEOF_RNG, SUPPORT_MOVE_RNG);
+            CopyFromOriginalData(SupportMoveRng, SUPPORT_MOVE_RNG);
         }
 
         private void SetSupportMoveRng() {
@@ -194,12 +221,12 @@ namespace MHXXSaveEditor.Data
             Voice = new byte[SIZEOF_DESIGN];
             ClothingStyle = new byte[SIZEOF_DESIGN];
 
-            CopyFromOriginalData(EyeStyle, SIZEOF_DESIGN, EYES);
-            CopyFromOriginalData(EarStyle, SIZEOF_DESIGN, EARS);
-            CopyFromOriginalData(CoatStyle, SIZEOF_DESIGN, COAT);
-            CopyFromOriginalData(TailStyle, SIZEOF_DESIGN, TAIL);
-            CopyFromOriginalData(Voice, SIZEOF_DESIGN, VOICE);
-            CopyFromOriginalData(ClothingStyle, SIZEOF_DESIGN, CLOTHING);
+            CopyFromOriginalData(EyeStyle, EYES);
+            CopyFromOriginalData(EarStyle, EARS);
+            CopyFromOriginalData(CoatStyle, COAT);
+            CopyFromOriginalData(TailStyle, TAIL);
+            CopyFromOriginalData(Voice, VOICE);
+            CopyFromOriginalData(ClothingStyle, CLOTHING);
         }
 
         private void CopyColors() {
@@ -208,10 +235,10 @@ namespace MHXXSaveEditor.Data
             CoatColor = new byte[SIZEOF_COLOR];
             ClothingColor = new byte[SIZEOF_COLOR];
 
-            CopyFromOriginalData(LeftEyeColor, SIZEOF_COLOR, LEFT_EYE_COLOR);
-            CopyFromOriginalData(RightEyeColor, SIZEOF_COLOR, RIGHT_EYE_COLOR);
-            CopyFromOriginalData(CoatColor, SIZEOF_COLOR, COAT_COLOR);
-            CopyFromOriginalData(ClothingColor, SIZEOF_COLOR, CLOTHING_COLOR);
+            CopyFromOriginalData(LeftEyeColor, LEFT_EYE_COLOR);
+            CopyFromOriginalData(RightEyeColor, RIGHT_EYE_COLOR);
+            CopyFromOriginalData(CoatColor, COAT_COLOR);
+            CopyFromOriginalData(ClothingColor, CLOTHING_COLOR);
         }
 
         private void CopyStatus() {
@@ -220,10 +247,10 @@ namespace MHXXSaveEditor.Data
             Job = new byte[SIZEOF_STATUS];
             Prowler = new byte[SIZEOF_STATUS];
 
-            CopyFromOriginalData(Status, SIZEOF_STATUS, STATUS);
-            CopyFromOriginalData(Training, SIZEOF_STATUS, TRAINING);
-            CopyFromOriginalData(Job, SIZEOF_STATUS, JOB);
-            CopyFromOriginalData(Prowler, SIZEOF_STATUS, PROWLER);
+            CopyFromOriginalData(Status, STATUS);
+            CopyFromOriginalData(Training, TRAINING);
+            CopyFromOriginalData(Job, JOB);
+            CopyFromOriginalData(Prowler, PROWLER);
         }
 
         private bool CheckDlc() {
@@ -237,13 +264,24 @@ namespace MHXXSaveEditor.Data
         private void SetDlc() {
             Array.Copy(DLC_MASTER, OriginalOwner, SIZEOF_ORIGINAL_OWNER_ID);
             Array.Copy(DLC_MASTER, Namegiver, SIZEOF_ORIGINAL_OWNER_ID);
-            byte[] newStatus = { (byte) (Status[0] + DLC_STATUS) }; // why does C# cast bytes to int before addition instead of having + operator for bytes?
+
+            byte[] newStatus = { (byte) (Status[0] + DLC_STATUS) };
             Array.Copy(newStatus, Status, SIZEOF_STATUS);
+
+            /* scout id? */
         }
 
         /* Can't store the real originals anywhere, so just assume the current hunter is the namegiver and orig owner */
-        private void UnsetDlc() {
-            /* fix hunter stuff, guild card id is hidden in magic numbers in EditGuildCardDialog.cs */
+        private void UnsetDlc(Player player) { 
+            string id = player.ShortGuildId;
+            byte[] idBytes = HexStringToBytes(id);
+            Array.Copy(idBytes, OriginalOwner, SIZEOF_ORIGINAL_OWNER_ID);
+            Array.Copy(idBytes, Namegiver, SIZEOF_ORIGINAL_OWNER_ID);
+
+            byte[] newStatus = { (byte)(Status[0] - DLC_STATUS) };
+            Array.Copy(newStatus, Status, SIZEOF_STATUS);
+
+            /* scout id? */
         }
     }
 }

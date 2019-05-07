@@ -645,7 +645,12 @@ namespace MHXXSaveEditor.Forms
 
         private void DlcCheck_CheckStateChanged(object sender, EventArgs e) {
             /* change bias id? change orig owner id? */
-            palicoStatus = (palicoStatus > 100) ? palicoStatus - 128 : palicoStatus + 128;
+            //palicoStatus = (palicoStatus > 100) ? palicoStatus - 128 : palicoStatus + 128;
+            if (kitty.DLC) {
+                kitty.UnsetDlc(mainForm.player);
+            } else {
+                kitty.SetDlc();
+            }
 
         }
 
